@@ -246,6 +246,7 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
+            object-position: top center;
             image-rendering: pixelated;
         }
 
@@ -393,23 +394,6 @@
             filter: drop-shadow(0 0 30px rgba(255,255,255,0.03));
         }
 
-        .guest-name {
-            position: absolute;
-            bottom: 200px;
-            left: 50%;
-            transform: translateX(-50%);
-            font-family: 'Press Start 2P', monospace;
-            font-size: 10px;
-            color: #aaa;
-            z-index: 4;
-            text-align: center;
-            background: rgba(0,0,0,0.7);
-            padding: 4px 12px;
-            border: 2px solid #333;
-            white-space: nowrap;
-            display: none;
-        }
-
         @media (max-width: 400px) {
             .touch-btn { font-size: 8px; padding: 4px 6px; min-height: 34px; }
             .touch-btn.start-shift { font-size: 12px; padding: 14px; }
@@ -420,13 +404,11 @@
             #counters { font-size: 7px; }
             #timerDisplay { font-size: 11px; padding: 4px 8px; }
             .guest-display { width: 130px; height: 373px; }
-            .guest-name { font-size: 8px; bottom: 160px; }
         }
 
         @media (orientation: landscape) and (max-height: 500px) {
             #gameContainer { max-width: 70vh; }
             .guest-display { width: 100px; height: 287px; margin-top: 0; }
-            .guest-name { bottom: 120px; font-size: 7px; }
             #timerDisplay { font-size: 10px; padding: 3px 6px; }
         }
     </style>
@@ -435,11 +417,10 @@
 <div id="gameContainer">
     <canvas id="gameCanvas" width="360" height="640"></canvas>
 
-    <!-- Отображение гостя без фона и обводки -->
+    <!-- Отображение гостя без фона, обводки и имени -->
     <div class="guest-display" id="guestDisplay">
         <img id="guestImage" src="" alt="Гость">
     </div>
-    <div class="guest-name" id="guestNameDisplay">—</div>
 
     <button class="touch-btn left" id="btnLeft">◀ ОТПРАВИТЬ</button>
     <button class="touch-btn right" id="btnRight">ПРОПУСТИТЬ ▶</button>
@@ -500,8 +481,8 @@
         const MALE_NAMES = ['АЛЕКСЕЙ ИВАНОВ', 'ДМИТРИЙ СМИРНОВ', 'СЕРГЕЙ ПОПОВ', 'АНДРЕЙ ЛЕБЕДЕВ', 'ИВАН МОРОЗОВ', 'ПАВЕЛ ВОЛКОВ'];
         const FEMALE_NAMES = ['МАРИЯ ПЕТРОВА', 'АННА КУЗНЕЦОВА', 'ЕКАТЕРИНА СОКОЛОВА', 'ОЛЬГА КОЗЛОВА', 'ТАТЬЯНА НОВИКОВА', 'ЮЛИЯ МЕДВЕДЕВА', 'АЛЕНА ТИХОНОВА', 'НИКОЛАЙ ЕГОРОВ'];
 
-        const WAVE_TIME_LIMIT = 45; // секунд на волну (увеличено с 30 до 45)
-        const AUTO_CONTINUE_DELAY = 800; // мс задержка перед следующим гостем
+        const WAVE_TIME_LIMIT = 45;
+        const AUTO_CONTINUE_DELAY = 800;
 
         function generateGuest(index) {
             const isMale = index < 6;
@@ -571,7 +552,6 @@
         const pBirth = document.getElementById('pBirth');
         const passportImage = document.getElementById('passportImage');
         const guestImage = document.getElementById('guestImage');
-        const guestNameDisplay = document.getElementById('guestNameDisplay');
         const guestDisplay = document.getElementById('guestDisplay');
 
         // === ЗАГРУЗКА ИЗОБРАЖЕНИЙ ===
@@ -673,7 +653,6 @@
             btnStartShift.classList.remove('hidden');
             btnStartShift.textContent = '🔄 НАЧАТЬ СНОВА';
             guestDisplay.style.display = 'none';
-            guestNameDisplay.style.display = 'none';
             stopTimer();
             timerDisplay.style.display = 'none';
             drawGame();
@@ -688,7 +667,6 @@
             btnRight.classList.add('hidden');
             btnPassport.classList.add('hidden');
             guestDisplay.style.display = 'none';
-            guestNameDisplay.style.display = 'none';
             timerDisplay.style.display = 'none';
         }
 
@@ -741,7 +719,6 @@
                 btnStartShift.classList.remove('hidden');
                 btnStartShift.textContent = '🔄 НОВАЯ СМЕНА';
                 guestDisplay.style.display = 'none';
-                guestNameDisplay.style.display = 'none';
                 stopTimer();
                 timerDisplay.style.display = 'none';
                 drawGame();
@@ -759,8 +736,6 @@
                 guestImage.src = img.src;
                 guestDisplay.style.display = 'flex';
             }
-            guestNameDisplay.textContent = guest.name;
-            guestNameDisplay.style.display = 'block';
 
             drawGame();
         }
@@ -789,7 +764,6 @@
                 btnStartShift.classList.remove('hidden');
                 btnStartShift.textContent = '🔄 НАЧАТЬ СНОВА';
                 guestDisplay.style.display = 'none';
-                guestNameDisplay.style.display = 'none';
                 stopTimer();
                 timerDisplay.style.display = 'none';
                 drawGame();
@@ -797,7 +771,7 @@
             }
 
             // Показываем статус и автоматически переходим к следующему гостю
-            statusBar.textContent = `✅ ${guest.name.split(' ')[0]} ${allow ? 'ПРОПУЩЕН' : 'ОТПРАВЛЕН'}`;
+            statusBar.textContent = `✅ ${allow ? 'ПРОПУЩЕН' : 'ОТПРАВЛЕН'}`;
             state.waitingForContinue = true;
             btnLeft.classList.add('hidden');
             btnRight.classList.add('hidden');
@@ -832,6 +806,9 @@
             const img = state.imageCache[guest.spriteKey];
             if (img) {
                 passportImage.src = img.src;
+                // Принудительно показываем верхнюю часть изображения
+                passportImage.style.objectFit = 'cover';
+                passportImage.style.objectPosition = 'top center';
             }
             passportModal.classList.add('active');
             state.passportOpen = true;
@@ -918,7 +895,6 @@
                 btnRight.classList.add('hidden');
                 btnPassport.classList.add('hidden');
                 guestDisplay.style.display = 'none';
-                guestNameDisplay.style.display = 'none';
                 statusBar.textContent = '⚡ НАЧНИ СМЕНУ';
                 waveConditionEl.textContent = 'УСЛОВИЕ: ВСЕ СОВЕРШЕННОЛЕТНИЕ';
                 guestCountEl.textContent = '0';
