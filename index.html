@@ -126,18 +126,70 @@
             transform: translate(-50%, -50%) translateY(3px);
         }
 
-        .touch-btn.continue-btn {
-            left: 50%;
-            bottom: 20px;
-            transform: translateX(-50%);
-            width: 60%;
-            border-color: #555;
-            font-size: 11px;
-            min-height: 36px;
-        }
-
         .touch-btn.hidden {
             display: none !important;
+        }
+
+        #conditionModal {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.95);
+            z-index: 30;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            padding: 30px;
+            flex-direction: column;
+        }
+
+        #conditionModal.active {
+            display: flex;
+        }
+
+        .condition-content {
+            background: #0a0a0a;
+            border: 4px solid #444;
+            padding: 30px 25px;
+            width: 90%;
+            max-width: 320px;
+            text-align: center;
+        }
+
+        .condition-title {
+            font-family: 'Press Start 2P', monospace;
+            font-size: 14px;
+            color: #fff;
+            margin-bottom: 20px;
+            letter-spacing: 2px;
+        }
+
+        .condition-text {
+            font-family: 'Press Start 2P', monospace;
+            font-size: 12px;
+            color: #ffcc00;
+            padding: 15px;
+            border: 2px solid #333;
+            margin-bottom: 25px;
+            line-height: 1.6;
+        }
+
+        .condition-btn {
+            padding: 12px 30px;
+            background: #111;
+            border: 3px solid #555;
+            color: #fff;
+            font-family: 'Press Start 2P', monospace;
+            font-size: 12px;
+            cursor: pointer;
+            touch-action: manipulation;
+            width: 100%;
+        }
+
+        .condition-btn:active {
+            background: #222;
         }
 
         #passportModal {
@@ -285,6 +337,37 @@
             color: #aaa;
         }
 
+        #timerDisplay {
+            position: absolute;
+            top: 50px;
+            left: 8px;
+            font-family: 'Press Start 2P', monospace;
+            font-size: 14px;
+            color: #0f0;
+            z-index: 5;
+            background: rgba(0,0,0,0.7);
+            padding: 6px 10px;
+            border: 2px solid #222;
+            backdrop-filter: blur(2px);
+            text-shadow: 0 0 10px rgba(0,255,0,0.3);
+        }
+
+        #timerDisplay.warning {
+            color: #ff0;
+            text-shadow: 0 0 10px rgba(255,255,0,0.3);
+        }
+
+        #timerDisplay.danger {
+            color: #f00;
+            text-shadow: 0 0 10px rgba(255,0,0,0.5);
+            animation: blink 0.5s infinite;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+
         .guest-display {
             position: absolute;
             top: 50%;
@@ -297,9 +380,9 @@
             align-items: center;
             justify-content: center;
             margin-top: -20px;
-            background: rgba(0,0,0,0.2);
             border-radius: 4px;
             overflow: hidden;
+            background: transparent;
         }
 
         .guest-display img {
@@ -327,38 +410,24 @@
             display: none;
         }
 
-        .guest-year {
-            position: absolute;
-            bottom: 175px;
-            left: 50%;
-            transform: translateX(-50%);
-            font-family: 'Press Start 2P', monospace;
-            font-size: 9px;
-            color: #666;
-            z-index: 4;
-            background: rgba(0,0,0,0.7);
-            padding: 2px 10px;
-            border: 2px solid #222;
-            display: none;
-        }
-
         @media (max-width: 400px) {
             .touch-btn { font-size: 8px; padding: 4px 6px; min-height: 34px; }
             .touch-btn.start-shift { font-size: 12px; padding: 14px; }
+            .condition-text { font-size: 10px; }
             .passport-field { font-size: 8px; }
             .passport-field span { font-size: 9px; }
             #waveCondition { font-size: 7px; }
             #counters { font-size: 7px; }
+            #timerDisplay { font-size: 11px; padding: 4px 8px; }
             .guest-display { width: 130px; height: 373px; }
             .guest-name { font-size: 8px; bottom: 160px; }
-            .guest-year { font-size: 7px; bottom: 140px; }
         }
 
         @media (orientation: landscape) and (max-height: 500px) {
             #gameContainer { max-width: 70vh; }
             .guest-display { width: 100px; height: 287px; margin-top: 0; }
             .guest-name { bottom: 120px; font-size: 7px; }
-            .guest-year { bottom: 105px; font-size: 6px; }
+            #timerDisplay { font-size: 10px; padding: 3px 6px; }
         }
     </style>
 </head>
@@ -366,20 +435,27 @@
 <div id="gameContainer">
     <canvas id="gameCanvas" width="360" height="640"></canvas>
 
-    <!-- Отображение гостя с разрешением 294x844 -->
+    <!-- Отображение гостя без фона и обводки -->
     <div class="guest-display" id="guestDisplay">
         <img id="guestImage" src="" alt="Гость">
     </div>
     <div class="guest-name" id="guestNameDisplay">—</div>
-    <div class="guest-year" id="guestYearDisplay">Г.Р. —</div>
 
     <button class="touch-btn left" id="btnLeft">◀ ОТПРАВИТЬ</button>
     <button class="touch-btn right" id="btnRight">ПРОПУСТИТЬ ▶</button>
     <button class="touch-btn check-passport" id="btnPassport">📋 ПАСПОРТ</button>
     <button class="touch-btn start-shift" id="btnStartShift">▶ НАЧАТЬ СМЕНУ</button>
-    <button class="touch-btn continue-btn hidden" id="btnContinue">▶ ДАЛЕЕ</button>
+
+    <div id="conditionModal">
+        <div class="condition-content">
+            <div class="condition-title">📋 УСЛОВИЕ СМЕНЫ</div>
+            <div class="condition-text" id="conditionText">ВСЕ СОВЕРШЕННОЛЕТНИЕ</div>
+            <button class="condition-btn" id="conditionStartBtn">▶ ПРИНЯТЬ</button>
+        </div>
+    </div>
 
     <div id="waveCondition">УСЛОВИЕ: ВСЕ СОВЕРШЕННОЛЕТНИЕ</div>
+    <div id="timerDisplay">⏱ 45</div>
     <div id="counters">👥 <span id="guestCount">0</span>/10<br>✕ <span id="mistakeCount">0</span>/2</div>
     <div id="statusBar">⚡ НАЧНИ СМЕНУ</div>
 
@@ -420,16 +496,21 @@
 
         const SPRITE_KEYS = ['a1','a2','a3','a4','a5','a6','a7','a8','a9','a10','a11','a12','a13','a14'];
 
-        // === ИМЕНА ===
-        const NAMES = [
-            'АЛЕКСЕЙ ИВАНОВ', 'МАРИЯ ПЕТРОВА', 'ДМИТРИЙ СМИРНОВ', 'АННА КУЗНЕЦОВА',
-            'СЕРГЕЙ ПОПОВ', 'ЕКАТЕРИНА СОКОЛОВА', 'АНДРЕЙ ЛЕБЕДЕВ', 'ОЛЬГА КОЗЛОВА',
-            'ИВАН МОРОЗОВ', 'ТАТЬЯНА НОВИКОВА', 'ПАВЕЛ ВОЛКОВ', 'ЮЛИЯ МЕДВЕДЕВА',
-            'НИКОЛАЙ ЕГОРОВ', 'АЛЕНА ТИХОНОВА'
-        ];
+        // === ИМЕНА (мужские и женские) ===
+        const MALE_NAMES = ['АЛЕКСЕЙ ИВАНОВ', 'ДМИТРИЙ СМИРНОВ', 'СЕРГЕЙ ПОПОВ', 'АНДРЕЙ ЛЕБЕДЕВ', 'ИВАН МОРОЗОВ', 'ПАВЕЛ ВОЛКОВ'];
+        const FEMALE_NAMES = ['МАРИЯ ПЕТРОВА', 'АННА КУЗНЕЦОВА', 'ЕКАТЕРИНА СОКОЛОВА', 'ОЛЬГА КОЗЛОВА', 'ТАТЬЯНА НОВИКОВА', 'ЮЛИЯ МЕДВЕДЕВА', 'АЛЕНА ТИХОНОВА', 'НИКОЛАЙ ЕГОРОВ'];
+
+        const WAVE_TIME_LIMIT = 45; // секунд на волну (увеличено с 30 до 45)
+        const AUTO_CONTINUE_DELAY = 800; // мс задержка перед следующим гостем
 
         function generateGuest(index) {
-            const name = NAMES[index % NAMES.length];
+            const isMale = index < 6;
+            let name;
+            if (isMale) {
+                name = MALE_NAMES[index % MALE_NAMES.length];
+            } else {
+                name = FEMALE_NAMES[(index - 6) % FEMALE_NAMES.length];
+            }
             const birthYear = 1990 + Math.floor(Math.random() * 25);
             const isAdult = birthYear <= 2008;
             const spriteKey = SPRITE_KEYS[index % SPRITE_KEYS.length];
@@ -439,7 +520,8 @@
                 birthYear: birthYear,
                 isAdult: isAdult,
                 spriteKey: spriteKey,
-                imagePath: IMAGE_PATHS[spriteKey]
+                imagePath: IMAGE_PATHS[spriteKey],
+                isMale: isMale
             };
         }
 
@@ -458,7 +540,12 @@
             currentGuest: null,
             waitingForContinue: false,
             imagesLoaded: false,
-            imageCache: {}
+            imageCache: {},
+            timeLeft: WAVE_TIME_LIMIT,
+            timerInterval: null,
+            waveFailed: false,
+            autoContinueTimeout: null,
+            conditionAccepted: false
         };
 
         // === DOM ===
@@ -470,11 +557,14 @@
         const guestCountEl = document.getElementById('guestCount');
         const mistakeCountEl = document.getElementById('mistakeCount');
         const statusBar = document.getElementById('statusBar');
+        const timerDisplay = document.getElementById('timerDisplay');
         const btnLeft = document.getElementById('btnLeft');
         const btnRight = document.getElementById('btnRight');
         const btnPassport = document.getElementById('btnPassport');
         const btnStartShift = document.getElementById('btnStartShift');
-        const btnContinue = document.getElementById('btnContinue');
+        const conditionModal = document.getElementById('conditionModal');
+        const conditionText = document.getElementById('conditionText');
+        const conditionStartBtn = document.getElementById('conditionStartBtn');
         const passportModal = document.getElementById('passportModal');
         const passportClose = document.getElementById('passportClose');
         const pName = document.getElementById('pName');
@@ -482,7 +572,6 @@
         const passportImage = document.getElementById('passportImage');
         const guestImage = document.getElementById('guestImage');
         const guestNameDisplay = document.getElementById('guestNameDisplay');
-        const guestYearDisplay = document.getElementById('guestYearDisplay');
         const guestDisplay = document.getElementById('guestDisplay');
 
         // === ЗАГРУЗКА ИЗОБРАЖЕНИЙ ===
@@ -496,15 +585,12 @@
                 img.onload = function() {
                     state.imageCache[key] = this;
                     loaded++;
-                    console.log(`✅ Загружено: ${key} (${loaded}/${totalImages})`);
                     if (loaded === totalImages) {
                         state.imagesLoaded = true;
                         if (callback) callback();
                     }
                 };
                 img.onerror = function() {
-                    console.warn(`⚠️ Не удалось загрузить: ${path}`);
-                    // Создаём заглушку с размерами 294x844
                     const canvas = document.createElement('canvas');
                     canvas.width = 294;
                     canvas.height = 844;
@@ -516,16 +602,12 @@
                     cctx.textAlign = 'center';
                     cctx.textBaseline = 'middle';
                     cctx.fillText(key.toUpperCase(), 147, 422);
-                    cctx.strokeStyle = '#444';
-                    cctx.lineWidth = 3;
-                    cctx.strokeRect(3, 3, 288, 838);
                     
                     const fallbackImg = new Image();
                     fallbackImg.src = canvas.toDataURL();
                     fallbackImg.onload = function() {
                         state.imageCache[key] = this;
                         loaded++;
-                        console.log(`⚠️ Заглушка для: ${key} (${loaded}/${totalImages})`);
                         if (loaded === totalImages) {
                             state.imagesLoaded = true;
                             if (callback) callback();
@@ -536,7 +618,80 @@
             }
         }
 
+        // === ТАЙМЕР ===
+        function startTimer() {
+            clearInterval(state.timerInterval);
+            state.timeLeft = WAVE_TIME_LIMIT;
+            updateTimerDisplay();
+
+            state.timerInterval = setInterval(() => {
+                state.timeLeft--;
+                updateTimerDisplay();
+
+                if (state.timeLeft <= 0) {
+                    clearInterval(state.timerInterval);
+                    state.timerInterval = null;
+                    if (state.shiftActive && !state.gameOver) {
+                        waveFailed();
+                    }
+                }
+            }, 1000);
+        }
+
+        function updateTimerDisplay() {
+            timerDisplay.textContent = `⏱ ${state.timeLeft}`;
+            timerDisplay.classList.remove('warning', 'danger');
+            if (state.timeLeft <= 5) {
+                timerDisplay.classList.add('danger');
+            } else if (state.timeLeft <= 10) {
+                timerDisplay.classList.add('warning');
+            }
+        }
+
+        function stopTimer() {
+            clearInterval(state.timerInterval);
+            state.timerInterval = null;
+        }
+
+        function resetTimer() {
+            stopTimer();
+            state.timeLeft = WAVE_TIME_LIMIT;
+            updateTimerDisplay();
+        }
+
+        function waveFailed() {
+            if (state.gameOver) return;
+            state.shiftActive = false;
+            state.gameOver = true;
+            state.win = false;
+            state.waveFailed = true;
+            
+            statusBar.textContent = '⏰ ВРЕМЯ ВЫШЛО!';
+            btnLeft.classList.add('hidden');
+            btnRight.classList.add('hidden');
+            btnPassport.classList.add('hidden');
+            btnStartShift.classList.remove('hidden');
+            btnStartShift.textContent = '🔄 НАЧАТЬ СНОВА';
+            guestDisplay.style.display = 'none';
+            guestNameDisplay.style.display = 'none';
+            stopTimer();
+            timerDisplay.style.display = 'none';
+            drawGame();
+        }
+
         // === ФУНКЦИИ ===
+        function showCondition() {
+            conditionModal.classList.add('active');
+            conditionText.textContent = 'ВСЕ СОВЕРШЕННОЛЕТНИЕ';
+            btnStartShift.classList.add('hidden');
+            btnLeft.classList.add('hidden');
+            btnRight.classList.add('hidden');
+            btnPassport.classList.add('hidden');
+            guestDisplay.style.display = 'none';
+            guestNameDisplay.style.display = 'none';
+            timerDisplay.style.display = 'none';
+        }
+
         function startShift() {
             if (!state.imagesLoaded) {
                 statusBar.textContent = '⏳ ЗАГРУЗКА ИЗОБРАЖЕНИЙ...';
@@ -551,6 +706,8 @@
             state.currentGuestIndex = 0;
             state.waitingForContinue = false;
             state.passportOpen = false;
+            state.waveFailed = false;
+            state.conditionAccepted = true;
 
             state.guests = [];
             for (let i = 0; i < 10; i++) {
@@ -558,12 +715,15 @@
             }
 
             waveConditionEl.textContent = 'УСЛОВИЕ: ВСЕ СОВЕРШЕННОЛЕТНИЕ';
+            conditionModal.classList.remove('active');
             btnStartShift.classList.add('hidden');
-            btnContinue.classList.add('hidden');
             btnLeft.classList.remove('hidden');
             btnRight.classList.remove('hidden');
             btnPassport.classList.remove('hidden');
+            timerDisplay.style.display = 'block';
 
+            resetTimer();
+            startTimer();
             showGuest(0);
             updateUI();
             statusBar.textContent = '🔍 ПРОВЕРКА';
@@ -578,12 +738,12 @@
                 btnLeft.classList.add('hidden');
                 btnRight.classList.add('hidden');
                 btnPassport.classList.add('hidden');
-                btnContinue.classList.add('hidden');
                 btnStartShift.classList.remove('hidden');
                 btnStartShift.textContent = '🔄 НОВАЯ СМЕНА';
                 guestDisplay.style.display = 'none';
                 guestNameDisplay.style.display = 'none';
-                guestYearDisplay.style.display = 'none';
+                stopTimer();
+                timerDisplay.style.display = 'none';
                 drawGame();
                 return;
             }
@@ -593,7 +753,6 @@
             state.passportOpen = false;
             passportModal.classList.remove('active');
 
-            // Отображаем гостя с разрешением 294x844
             const guest = state.currentGuest;
             const img = state.imageCache[guest.spriteKey];
             if (img) {
@@ -602,8 +761,6 @@
             }
             guestNameDisplay.textContent = guest.name;
             guestNameDisplay.style.display = 'block';
-            guestYearDisplay.textContent = `Г.Р. ${guest.birthYear}`;
-            guestYearDisplay.style.display = 'block';
 
             drawGame();
         }
@@ -633,23 +790,33 @@
                 btnStartShift.textContent = '🔄 НАЧАТЬ СНОВА';
                 guestDisplay.style.display = 'none';
                 guestNameDisplay.style.display = 'none';
-                guestYearDisplay.style.display = 'none';
+                stopTimer();
+                timerDisplay.style.display = 'none';
                 drawGame();
                 return;
             }
 
-            state.waitingForContinue = true;
-            btnContinue.classList.remove('hidden');
+            // Показываем статус и автоматически переходим к следующему гостю
             statusBar.textContent = `✅ ${guest.name.split(' ')[0]} ${allow ? 'ПРОПУЩЕН' : 'ОТПРАВЛЕН'}`;
+            state.waitingForContinue = true;
+            btnLeft.classList.add('hidden');
+            btnRight.classList.add('hidden');
+            btnPassport.classList.add('hidden');
             drawGame();
-        }
 
-        function nextGuest() {
-            state.waitingForContinue = false;
-            btnContinue.classList.add('hidden');
-            showGuest(state.currentGuestIndex + 1);
-            updateUI();
-            drawGame();
+            // Автоматический переход через задержку
+            clearTimeout(state.autoContinueTimeout);
+            state.autoContinueTimeout = setTimeout(() => {
+                if (state.waitingForContinue && state.shiftActive && !state.gameOver) {
+                    state.waitingForContinue = false;
+                    btnLeft.classList.remove('hidden');
+                    btnRight.classList.remove('hidden');
+                    btnPassport.classList.remove('hidden');
+                    showGuest(state.currentGuestIndex + 1);
+                    updateUI();
+                    drawGame();
+                }
+            }, AUTO_CONTINUE_DELAY);
         }
 
         function openPassport() {
@@ -684,12 +851,10 @@
         function drawGame() {
             ctx.clearRect(0, 0, 360, 640);
 
-            // Рисуем фон
             const fonImg = state.imageCache['fon'];
             if (fonImg && fonImg.complete && fonImg.naturalWidth > 0) {
                 ctx.drawImage(fonImg, 0, 0, 360, 640);
             } else {
-                // Запасной фон
                 ctx.fillStyle = '#0a0a0a';
                 ctx.fillRect(0, 0, 360, 640);
                 for (let y = 0; y < 640; y += 16) {
@@ -702,11 +867,9 @@
                 }
             }
 
-            // Затемнение для читаемости
             ctx.fillStyle = 'rgba(0,0,0,0.15)';
             ctx.fillRect(0, 0, 360, 640);
 
-            // Статус внизу
             ctx.fillStyle = 'rgba(0,0,0,0.7)';
             ctx.fillRect(0, 600, 360, 40);
             ctx.fillStyle = '#222';
@@ -716,14 +879,17 @@
             ctx.fillStyle = '#555';
             ctx.textAlign = 'center';
             ctx.textBaseline = 'middle';
-            const statusText = state.gameOver ? (state.win ? 'ПОБЕДА!' : 'ПОРАЖЕНИЕ') :
+            const statusText = state.gameOver ? (state.win ? 'ПОБЕДА!' : (state.waveFailed ? 'ВРЕМЯ ВЫШЛО!' : 'ПОРАЖЕНИЕ')) :
                               state.shiftActive ? 'ИДЁТ СМЕНА' : 'ОЖИДАНИЕ';
             ctx.fillText(statusText, 180, 620);
         }
 
         // === ОБРАБОТЧИКИ ===
-        btnStartShift.addEventListener('click', startShift);
-        btnStartShift.addEventListener('touchend', (e) => { e.preventDefault(); startShift(); });
+        btnStartShift.addEventListener('click', showCondition);
+        btnStartShift.addEventListener('touchend', (e) => { e.preventDefault(); showCondition(); });
+
+        conditionStartBtn.addEventListener('click', startShift);
+        conditionStartBtn.addEventListener('touchend', (e) => { e.preventDefault(); startShift(); });
 
         btnLeft.addEventListener('click', () => handleDecision(false));
         btnLeft.addEventListener('touchend', (e) => { e.preventDefault(); handleDecision(false); });
@@ -733,9 +899,6 @@
 
         btnPassport.addEventListener('click', openPassport);
         btnPassport.addEventListener('touchend', (e) => { e.preventDefault(); openPassport(); });
-
-        btnContinue.addEventListener('click', nextGuest);
-        btnContinue.addEventListener('touchend', (e) => { e.preventDefault(); nextGuest(); });
 
         passportClose.addEventListener('click', closePassport);
         passportClose.addEventListener('touchend', (e) => { e.preventDefault(); closePassport(); });
@@ -747,17 +910,15 @@
         // === ИНИЦИАЛИЗАЦИЯ ===
         function init() {
             statusBar.textContent = '⏳ ЗАГРУЗКА...';
+            timerDisplay.style.display = 'none';
             
             loadImages(function() {
-                console.log('🎮 Все изображения загружены!');
                 btnStartShift.classList.remove('hidden');
                 btnLeft.classList.add('hidden');
                 btnRight.classList.add('hidden');
                 btnPassport.classList.add('hidden');
-                btnContinue.classList.add('hidden');
                 guestDisplay.style.display = 'none';
                 guestNameDisplay.style.display = 'none';
-                guestYearDisplay.style.display = 'none';
                 statusBar.textContent = '⚡ НАЧНИ СМЕНУ';
                 waveConditionEl.textContent = 'УСЛОВИЕ: ВСЕ СОВЕРШЕННОЛЕТНИЕ';
                 guestCountEl.textContent = '0';
@@ -771,7 +932,13 @@
 
         // Клавиатура
         document.addEventListener('keydown', (e) => {
-            if (e.key === 'Enter' && !btnStartShift.classList.contains('hidden')) startShift();
+            if (e.key === 'Enter') {
+                if (!conditionModal.classList.contains('active')) {
+                    if (!btnStartShift.classList.contains('hidden')) showCondition();
+                } else {
+                    startShift();
+                }
+            }
             if (e.key === 'p' || e.key === 'P') {
                 if (!btnPassport.classList.contains('hidden')) openPassport();
             }
@@ -780,10 +947,6 @@
             }
             if (e.key === 'ArrowRight') {
                 if (!btnRight.classList.contains('hidden')) handleDecision(true);
-            }
-            if (e.key === ' ' || e.key === 'Space') {
-                e.preventDefault();
-                if (!btnContinue.classList.contains('hidden')) nextGuest();
             }
             if (e.key === 'Escape') {
                 if (state.passportOpen) closePassport();
