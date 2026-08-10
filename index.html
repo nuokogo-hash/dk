@@ -106,7 +106,42 @@
             min-height: 36px;
         }
 
-        .touch-btn.check-passport:active {
+        .touch-btn.breath-test {
+            left: 50%;
+            transform: translateX(-50%);
+            bottom: 180px;
+            width: 70%;
+            border-color: #8866aa;
+            font-size: 9px;
+            min-height: 36px;
+            background: rgba(40,20,60,0.85);
+        }
+
+        .touch-btn.search-btn {
+            left: 50%;
+            transform: translateX(-50%);
+            bottom: 230px;
+            width: 70%;
+            border-color: #aa8844;
+            font-size: 9px;
+            min-height: 36px;
+            background: rgba(60,40,10,0.85);
+        }
+
+        .touch-btn.payment-btn {
+            left: 50%;
+            transform: translateX(-50%);
+            bottom: 280px;
+            width: 70%;
+            border-color: #44aa88;
+            font-size: 9px;
+            min-height: 36px;
+            background: rgba(10,60,50,0.85);
+        }
+
+        .touch-btn.breath-test:active,
+        .touch-btn.search-btn:active,
+        .touch-btn.payment-btn:active {
             transform: translateX(-50%) translateY(3px);
         }
 
@@ -229,29 +264,6 @@
             letter-spacing: 2px;
         }
 
-        .passport-photo {
-            width: 80px;
-            height: 100px;
-            background: #1a1a1a;
-            border: 3px solid #444;
-            margin: 0 auto 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-            image-rendering: pixelated;
-            position: relative;
-        }
-
-        .passport-photo img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            object-position: top 15% center;
-            image-rendering: pixelated;
-            display: block;
-        }
-
         .passport-field {
             font-family: 'Press Start 2P', monospace;
             font-size: 10px;
@@ -282,6 +294,46 @@
 
         .passport-close:active {
             background: #222;
+        }
+
+        #resultPopup {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-family: 'Press Start 2P', monospace;
+            font-size: 16px;
+            color: #fff;
+            z-index: 6;
+            background: rgba(0,0,0,0.95);
+            padding: 20px 30px;
+            border: 3px solid #666;
+            text-align: center;
+            display: none;
+            pointer-events: none;
+            animation: fadeInOut 1.8s ease-in-out;
+        }
+
+        #resultPopup.danger {
+            color: #ff4444;
+            border-color: #ff4444;
+        }
+
+        #resultPopup.success {
+            color: #44ff44;
+            border-color: #44ff44;
+        }
+
+        #resultPopup.info {
+            color: #44aaff;
+            border-color: #44aaff;
+        }
+
+        @keyframes fadeInOut {
+            0% { opacity: 0; transform: translate(-50%, -50%) scale(0.8); }
+            15% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+            85% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+            100% { opacity: 0; transform: translate(-50%, -50%) scale(0.8); }
         }
 
         #waveCondition {
@@ -320,49 +372,49 @@
             width: 92%;
         }
 
-        #counters {
-            position: absolute;
-            top: 50px;
-            right: 8px;
-            font-family: 'Press Start 2P', monospace;
-            font-size: 9px;
-            color: #555;
-            text-align: right;
-            z-index: 5;
-            background: rgba(0,0,0,0.7);
-            padding: 6px 10px;
-            border: 2px solid #222;
-            line-height: 1.8;
-            backdrop-filter: blur(2px);
-        }
-
-        #counters span {
-            color: #aaa;
-        }
-
-        #timerDisplay {
+        #topPanel {
             position: absolute;
             top: 50px;
             left: 8px;
-            font-family: 'Press Start 2P', monospace;
-            font-size: 14px;
-            color: #0f0;
+            right: 8px;
+            display: flex;
+            justify-content: space-between;
+            gap: 6px;
             z-index: 5;
+        }
+
+        .panel-item {
+            font-family: 'Press Start 2P', monospace;
+            font-size: 10px;
+            color: #aaa;
             background: rgba(0,0,0,0.7);
-            padding: 6px 10px;
+            padding: 6px 8px;
             border: 2px solid #222;
             backdrop-filter: blur(2px);
-            text-shadow: 0 0 10px rgba(0,255,0,0.3);
+            text-align: center;
+            flex: 1;
+            min-width: 0;
+            line-height: 1.4;
         }
 
-        #timerDisplay.warning {
+        .panel-item .value {
+            display: block;
+            font-size: 14px;
+            margin-top: 2px;
+        }
+
+        .panel-item.timer {
+            border-color: #0f0;
+        }
+
+        .panel-item.timer.warning {
+            border-color: #ff0;
             color: #ff0;
-            text-shadow: 0 0 10px rgba(255,255,0,0.3);
         }
 
-        #timerDisplay.danger {
+        .panel-item.timer.danger {
+            border-color: #f00;
             color: #f00;
-            text-shadow: 0 0 10px rgba(255,0,0,0.5);
             animation: blink 0.5s infinite;
         }
 
@@ -398,22 +450,38 @@
 
         @media (max-width: 400px) {
             .touch-btn { font-size: 8px; padding: 4px 6px; min-height: 34px; }
+            .touch-btn.left, .touch-btn.right { font-size: 8px; }
             .touch-btn.start-shift { font-size: 12px; padding: 14px; }
             .condition-text { font-size: 10px; }
             .passport-field { font-size: 8px; }
             .passport-field span { font-size: 9px; }
-            .passport-photo { width: 60px; height: 75px; }
             #waveCondition { font-size: 7px; }
-            #counters { font-size: 7px; }
-            #timerDisplay { font-size: 11px; padding: 4px 8px; }
+            .panel-item { font-size: 8px; padding: 4px 5px; }
+            .panel-item .value { font-size: 11px; }
             .guest-display { width: 130px; height: 373px; }
+            .touch-btn.breath-test, .touch-btn.search-btn, .touch-btn.payment-btn { 
+                font-size: 8px; min-height: 30px; padding: 4px 6px; width: 65%;
+            }
+            .touch-btn.breath-test { bottom: 160px; }
+            .touch-btn.search-btn { bottom: 200px; }
+            .touch-btn.payment-btn { bottom: 240px; }
+            #resultPopup { font-size: 13px; padding: 15px 20px; }
         }
 
         @media (orientation: landscape) and (max-height: 500px) {
             #gameContainer { max-width: 70vh; }
             .guest-display { width: 100px; height: 287px; margin-top: 0; }
-            #timerDisplay { font-size: 10px; padding: 3px 6px; }
-            .passport-photo { width: 55px; height: 70px; }
+            .panel-item { font-size: 7px; padding: 3px 4px; }
+            .panel-item .value { font-size: 10px; }
+            .touch-btn { font-size: 7px; padding: 3px 5px; min-height: 28px; }
+            .touch-btn.left, .touch-btn.right { font-size: 7px; }
+            .touch-btn.breath-test, .touch-btn.search-btn, .touch-btn.payment-btn { 
+                font-size: 7px; min-height: 24px; padding: 3px 5px;
+            }
+            .touch-btn.breath-test { bottom: 140px; }
+            .touch-btn.search-btn { bottom: 170px; }
+            .touch-btn.payment-btn { bottom: 200px; }
+            #resultPopup { font-size: 11px; padding: 12px 16px; }
         }
     </style>
 </head>
@@ -421,14 +489,18 @@
 <div id="gameContainer">
     <canvas id="gameCanvas" width="360" height="640"></canvas>
 
-    <!-- Отображение гостя без фона, обводки и имени -->
     <div class="guest-display" id="guestDisplay">
         <img id="guestImage" src="" alt="Гость">
     </div>
 
+    <div id="resultPopup"></div>
+
     <button class="touch-btn left" id="btnLeft">◀ ОТПРАВИТЬ</button>
     <button class="touch-btn right" id="btnRight">ПРОПУСТИТЬ ▶</button>
     <button class="touch-btn check-passport" id="btnPassport">📋 ПАСПОРТ</button>
+    <button class="touch-btn breath-test hidden" id="btnBreath">🌬️ ДЫХНУТЬ</button>
+    <button class="touch-btn search-btn hidden" id="btnSearch">🔍 ОБЫСКАТЬ</button>
+    <button class="touch-btn payment-btn hidden" id="btnPayment">💳 ОПЛАТА</button>
     <button class="touch-btn start-shift" id="btnStartShift">▶ НАЧАТЬ СМЕНУ</button>
 
     <div id="conditionModal">
@@ -439,17 +511,28 @@
         </div>
     </div>
 
-    <div id="waveCondition">УСЛОВИЕ: ВСЕ СОВЕРШЕННОЛЕТНИЕ</div>
-    <div id="timerDisplay">⏱ 45</div>
-    <div id="counters">👥 <span id="guestCount">0</span>/10<br>✕ <span id="mistakeCount">0</span>/2</div>
+    <div id="waveCondition">ВОЛНА 1: ВСЕ СОВЕРШЕННОЛЕТНИЕ</div>
+    
+    <div id="topPanel">
+        <div class="panel-item timer" id="timerDisplay">
+            ⏱
+            <span class="value" id="timerValue">45</span>
+        </div>
+        <div class="panel-item">
+            👥
+            <span class="value"><span id="guestCount">0</span>/10</span>
+        </div>
+        <div class="panel-item">
+            ✕
+            <span class="value"><span id="mistakeCount">0</span>/2</span>
+        </div>
+    </div>
+
     <div id="statusBar">⚡ НАЧНИ СМЕНУ</div>
 
     <div id="passportModal">
         <div class="passport-content">
             <div class="passport-title">📇 ПАСПОРТ РФ</div>
-            <div class="passport-photo" id="passportPhoto">
-                <img id="passportImage" src="" alt="Фото">
-            </div>
             <div class="passport-field">ИМЯ: <span id="pName">—</span></div>
             <div class="passport-field">ДАТА РОЖД.: <span id="pBirth">—</span></div>
             <div class="passport-field">ГРАЖДАНСТВО: <span>РФ</span></div>
@@ -460,7 +543,6 @@
 
 <script>
     (function() {
-        // === ПУТИ К ИЗОБРАЖЕНИЯМ ===
         const IMAGE_PATHS = {
             fon: 'ph/fon.png',
             a1: 'ph/a1.png',
@@ -481,14 +563,25 @@
 
         const SPRITE_KEYS = ['a1','a2','a3','a4','a5','a6','a7','a8','a9','a10','a11','a12','a13','a14'];
 
-        // === ИМЕНА (мужские и женские) ===
         const MALE_NAMES = ['АЛЕКСЕЙ ИВАНОВ', 'ДМИТРИЙ СМИРНОВ', 'СЕРГЕЙ ПОПОВ', 'АНДРЕЙ ЛЕБЕДЕВ', 'ИВАН МОРОЗОВ', 'ПАВЕЛ ВОЛКОВ'];
-        const FEMALE_NAMES = ['МАРИЯ ПЕТРОВА', 'АННА КУЗНЕЦОВА', 'ЕКАТЕРИНА СОКОЛОВА', 'ОЛЬГА КОЗЛОВА', 'ТАТЬЯНА НОВИКОВА', 'ЮЛИЯ МЕДВЕДЕВА', 'АЛЕНА ТИХОНОВА', 'НИКОЛАЙ ЕГОРОВ'];
+        const FEMALE_NAMES = ['МАРИЯ ПЕТРОВА', 'АННА КУЗНЕЦОВА', 'ЕКАТЕРИНА СОКОЛОВА', 'ОЛЬГА КОЗЛОВА', 'ТАТЬЯНА НОВИКОВА', 'ЮЛИЯ МЕДВЕДЕВА', 'АЛЕНА ТИХОНОВА'];
 
         const WAVE_TIME_LIMIT = 45;
-        const AUTO_CONTINUE_DELAY = 800;
+        const AUTO_CONTINUE_DELAY = 1000;
 
-        function generateGuest(index) {
+        const WAVES = [
+            { id: 1, name: 'Возраст', checks: ['age'], desc: 'ВСЕ СОВЕРШЕННОЛЕТНИЕ' },
+            { id: 2, name: 'Пьян', checks: ['drunk'], desc: 'НЕТ ПЬЯНЫХ' },
+            { id: 3, name: 'Возраст + Пьян', checks: ['age', 'drunk'], desc: 'СОВЕРШЕННОЛЕТНИЕ И ТРЕЗВЫЕ' },
+            { id: 4, name: 'Обыск', checks: ['search'], desc: 'НЕТ ОРУЖИЯ' },
+            { id: 5, name: 'Возраст + Обыск', checks: ['age', 'search'], desc: 'СОВЕРШЕННОЛЕТНИЕ И БЕЗ ОРУЖИЯ' },
+            { id: 6, name: 'Возраст + Обыск + Пьян', checks: ['age', 'search', 'drunk'], desc: 'СОВЕРШЕННОЛЕТНИЕ, ТРЕЗВЫЕ, БЕЗ ОРУЖИЯ' },
+            { id: 7, name: 'Возраст + Оплата', checks: ['age', 'payment'], desc: 'СОВЕРШЕННОЛЕТНИЕ ПАРНИ С ДЕНЬГАМИ' }
+        ];
+
+        let currentWaveIndex = 0;
+
+        function generateGuest(index, waveIndex) {
             const isMale = index < 6;
             let name;
             if (isMale) {
@@ -499,6 +592,11 @@
             const birthYear = 1990 + Math.floor(Math.random() * 25);
             const isAdult = birthYear <= 2008;
             const spriteKey = SPRITE_KEYS[index % SPRITE_KEYS.length];
+            
+            const isDrunk = Math.random() < 0.35;
+            const hasWeapon = Math.random() < 0.25;
+            const hasMoney = Math.random() < 0.6;
+            
             return {
                 id: index,
                 name: name,
@@ -506,11 +604,18 @@
                 isAdult: isAdult,
                 spriteKey: spriteKey,
                 imagePath: IMAGE_PATHS[spriteKey],
-                isMale: isMale
+                isMale: isMale,
+                isDrunk: isDrunk,
+                hasWeapon: hasWeapon,
+                hasMoney: hasMoney,
+                checksDone: {
+                    drunk: false,
+                    search: false,
+                    payment: false
+                }
             };
         }
 
-        // === СОСТОЯНИЕ ===
         const state = {
             shiftActive: false,
             gameOver: false,
@@ -530,10 +635,11 @@
             timerInterval: null,
             waveFailed: false,
             autoContinueTimeout: null,
-            conditionAccepted: false
+            resultShown: false,
+            currentWave: 0,
+            resultTimeout: null
         };
 
-        // === DOM ===
         const canvas = document.getElementById('gameCanvas');
         const ctx = canvas.getContext('2d');
         ctx.imageSmoothingEnabled = false;
@@ -543,9 +649,13 @@
         const mistakeCountEl = document.getElementById('mistakeCount');
         const statusBar = document.getElementById('statusBar');
         const timerDisplay = document.getElementById('timerDisplay');
+        const timerValue = document.getElementById('timerValue');
         const btnLeft = document.getElementById('btnLeft');
         const btnRight = document.getElementById('btnRight');
         const btnPassport = document.getElementById('btnPassport');
+        const btnBreath = document.getElementById('btnBreath');
+        const btnSearch = document.getElementById('btnSearch');
+        const btnPayment = document.getElementById('btnPayment');
         const btnStartShift = document.getElementById('btnStartShift');
         const conditionModal = document.getElementById('conditionModal');
         const conditionText = document.getElementById('conditionText');
@@ -554,11 +664,19 @@
         const passportClose = document.getElementById('passportClose');
         const pName = document.getElementById('pName');
         const pBirth = document.getElementById('pBirth');
-        const passportImage = document.getElementById('passportImage');
         const guestImage = document.getElementById('guestImage');
         const guestDisplay = document.getElementById('guestDisplay');
+        const resultPopup = document.getElementById('resultPopup');
 
-        // === ЗАГРУЗКА ИЗОБРАЖЕНИЙ ===
+        function hideResult() {
+            resultPopup.style.display = 'none';
+            state.resultShown = false;
+            if (state.resultTimeout) {
+                clearTimeout(state.resultTimeout);
+                state.resultTimeout = null;
+            }
+        }
+
         function loadImages(callback) {
             const totalImages = Object.keys(IMAGE_PATHS).length;
             let loaded = 0;
@@ -602,7 +720,6 @@
             }
         }
 
-        // === ТАЙМЕР ===
         function startTimer() {
             clearInterval(state.timerInterval);
             state.timeLeft = WAVE_TIME_LIMIT;
@@ -623,7 +740,7 @@
         }
 
         function updateTimerDisplay() {
-            timerDisplay.textContent = `⏱ ${state.timeLeft}`;
+            timerValue.textContent = state.timeLeft;
             timerDisplay.classList.remove('warning', 'danger');
             if (state.timeLeft <= 5) {
                 timerDisplay.classList.add('danger');
@@ -654,32 +771,52 @@
             btnLeft.classList.add('hidden');
             btnRight.classList.add('hidden');
             btnPassport.classList.add('hidden');
+            btnBreath.classList.add('hidden');
+            btnSearch.classList.add('hidden');
+            btnPayment.classList.add('hidden');
             btnStartShift.classList.remove('hidden');
             btnStartShift.textContent = '🔄 НАЧАТЬ СНОВА';
             guestDisplay.style.display = 'none';
             stopTimer();
-            timerDisplay.style.display = 'none';
+            hideResult();
             drawGame();
         }
 
-        // === ФУНКЦИИ ===
+        function showResult(text, type) {
+            hideResult();
+            resultPopup.textContent = text;
+            resultPopup.className = type;
+            resultPopup.style.display = 'block';
+            state.resultShown = true;
+            
+            state.resultTimeout = setTimeout(() => {
+                hideResult();
+            }, 1800);
+        }
+
         function showCondition() {
+            const wave = WAVES[currentWaveIndex];
+            conditionText.textContent = wave.desc;
             conditionModal.classList.add('active');
-            conditionText.textContent = 'ВСЕ СОВЕРШЕННОЛЕТНИЕ';
             btnStartShift.classList.add('hidden');
             btnLeft.classList.add('hidden');
             btnRight.classList.add('hidden');
             btnPassport.classList.add('hidden');
+            btnBreath.classList.add('hidden');
+            btnSearch.classList.add('hidden');
+            btnPayment.classList.add('hidden');
             guestDisplay.style.display = 'none';
-            timerDisplay.style.display = 'none';
+            hideResult();
         }
 
         function startShift() {
             if (!state.imagesLoaded) {
-                statusBar.textContent = '⏳ ЗАГРУЗКА ИЗОБРАЖЕНИЙ...';
+                statusBar.textContent = '⏳ ЗАГРУЗКА...';
                 return;
             }
 
+            const wave = WAVES[currentWaveIndex];
+            
             state.shiftActive = true;
             state.gameOver = false;
             state.win = false;
@@ -689,52 +826,84 @@
             state.waitingForContinue = false;
             state.passportOpen = false;
             state.waveFailed = false;
-            state.conditionAccepted = true;
+            state.resultShown = false;
 
             state.guests = [];
             for (let i = 0; i < 10; i++) {
-                state.guests.push(generateGuest(i));
+                state.guests.push(generateGuest(i, currentWaveIndex));
             }
 
-            waveConditionEl.textContent = 'УСЛОВИЕ: ВСЕ СОВЕРШЕННОЛЕТНИЕ';
+            waveConditionEl.textContent = `ВОЛНА ${wave.id}: ${wave.desc}`;
             conditionModal.classList.remove('active');
             btnStartShift.classList.add('hidden');
             btnLeft.classList.remove('hidden');
             btnRight.classList.remove('hidden');
             btnPassport.classList.remove('hidden');
-            timerDisplay.style.display = 'block';
+            
+            btnBreath.classList.toggle('hidden', !wave.checks.includes('drunk'));
+            btnSearch.classList.toggle('hidden', !wave.checks.includes('search'));
+            btnPayment.classList.toggle('hidden', !wave.checks.includes('payment'));
 
             resetTimer();
             startTimer();
             showGuest(0);
             updateUI();
             statusBar.textContent = '🔍 ПРОВЕРКА';
+            hideResult();
         }
 
         function showGuest(index) {
             if (index >= state.guests.length) {
-                state.shiftActive = false;
-                state.gameOver = true;
-                state.win = true;
-                statusBar.textContent = '🏆 ПОБЕДА!';
-                btnLeft.classList.add('hidden');
-                btnRight.classList.add('hidden');
-                btnPassport.classList.add('hidden');
-                btnStartShift.classList.remove('hidden');
-                btnStartShift.textContent = '🔄 НОВАЯ СМЕНА';
-                guestDisplay.style.display = 'none';
-                stopTimer();
-                timerDisplay.style.display = 'none';
-                drawGame();
-                return;
+                if (currentWaveIndex < WAVES.length - 1) {
+                    currentWaveIndex++;
+                    state.shiftActive = false;
+                    state.gameOver = false;
+                    state.win = false;
+                    statusBar.textContent = `🌊 ВОЛНА ${currentWaveIndex + 1}`;
+                    btnLeft.classList.add('hidden');
+                    btnRight.classList.add('hidden');
+                    btnPassport.classList.add('hidden');
+                    btnBreath.classList.add('hidden');
+                    btnSearch.classList.add('hidden');
+                    btnPayment.classList.add('hidden');
+                    btnStartShift.classList.remove('hidden');
+                    btnStartShift.textContent = `▶ НАЧАТЬ ВОЛНУ ${currentWaveIndex + 1}`;
+                    guestDisplay.style.display = 'none';
+                    stopTimer();
+                    hideResult();
+                    drawGame();
+                    return;
+                } else {
+                    state.shiftActive = false;
+                    state.gameOver = true;
+                    state.win = true;
+                    statusBar.textContent = '🏆 ПОБЕДА! ВСЕ ВОЛНЫ ПРОЙДЕНЫ!';
+                    btnLeft.classList.add('hidden');
+                    btnRight.classList.add('hidden');
+                    btnPassport.classList.add('hidden');
+                    btnBreath.classList.add('hidden');
+                    btnSearch.classList.add('hidden');
+                    btnPayment.classList.add('hidden');
+                    btnStartShift.classList.remove('hidden');
+                    btnStartShift.textContent = '🔄 НОВАЯ ИГРА';
+                    guestDisplay.style.display = 'none';
+                    stopTimer();
+                    hideResult();
+                    drawGame();
+                    return;
+                }
             }
 
             state.currentGuest = state.guests[index];
             state.currentGuestIndex = index;
             state.passportOpen = false;
             passportModal.classList.remove('active');
+            state.resultShown = false;
+            hideResult();
 
             const guest = state.currentGuest;
+            guest.checksDone = { drunk: false, search: false, payment: false };
+
             const img = state.imageCache[guest.spriteKey];
             if (img) {
                 guestImage.src = img.src;
@@ -744,13 +913,81 @@
             drawGame();
         }
 
+        function handleCheck(type) {
+            if (!state.shiftActive || state.gameOver) return;
+            if (state.waitingForContinue) return;
+            if (!state.currentGuest) return;
+            
+            // Скрываем предыдущий результат при нажатии на любую кнопку
+            hideResult();
+
+            const guest = state.currentGuest;
+            const wave = WAVES[currentWaveIndex];
+            
+            if (type === 'drunk') {
+                guest.checksDone.drunk = true;
+                if (guest.isDrunk) {
+                    showResult('🍺 ЗАПАХ АЛКОГОЛЯ', 'danger');
+                } else {
+                    showResult('✅ ВСЁ ХОРОШО', 'success');
+                }
+            } else if (type === 'search') {
+                guest.checksDone.search = true;
+                if (guest.hasWeapon) {
+                    showResult('🔫 НАЙДЕНО ОРУЖИЕ!', 'danger');
+                } else {
+                    showResult('✅ НИЧЕГО НЕ НАЙДЕНО', 'success');
+                }
+            } else if (type === 'payment') {
+                guest.checksDone.payment = true;
+                if (!guest.isMale) {
+                    showResult('⚠️ ТОЛЬКО ДЛЯ ПАРНЕЙ', 'info');
+                    guest.checksDone.payment = false;
+                    return;
+                }
+                if (guest.hasMoney) {
+                    showResult('💳 ОПЛАТА ПРОШЛА', 'success');
+                } else {
+                    showResult('💸 НЕТ ДЕНЕГ', 'danger');
+                }
+            }
+        }
+
         function handleDecision(allow) {
             if (!state.shiftActive || state.gameOver) return;
             if (state.waitingForContinue) return;
             if (!state.currentGuest) return;
+            
+            // Скрываем предыдущий результат при нажатии на кнопку отправки/пропуска
+            hideResult();
 
             const guest = state.currentGuest;
-            if (allow && !guest.isAdult) {
+            const wave = WAVES[currentWaveIndex];
+            let isMistake = false;
+
+            // Проверяем только возраст, если он есть в условиях волны
+            // Остальные проверки не обязательны
+            let shouldPass = true;
+            
+            // Проверка возраста (если требуется)
+            if (wave.checks.includes('age') && !guest.isAdult) {
+                shouldPass = false;
+            }
+            
+            // Дополнительные проверки (если были выполнены - учитываем, если нет - игнорируем)
+            if (wave.checks.includes('drunk') && guest.checksDone.drunk && guest.isDrunk) {
+                shouldPass = false;
+            }
+            if (wave.checks.includes('search') && guest.checksDone.search && guest.hasWeapon) {
+                shouldPass = false;
+            }
+            if (wave.checks.includes('payment') && guest.checksDone.payment && (!guest.isMale || !guest.hasMoney)) {
+                shouldPass = false;
+            }
+
+            isMistake = (allow && !shouldPass) || (!allow && shouldPass);
+
+            if (isMistake) {
                 state.mistakes++;
             }
 
@@ -765,24 +1002,31 @@
                 btnLeft.classList.add('hidden');
                 btnRight.classList.add('hidden');
                 btnPassport.classList.add('hidden');
+                btnBreath.classList.add('hidden');
+                btnSearch.classList.add('hidden');
+                btnPayment.classList.add('hidden');
                 btnStartShift.classList.remove('hidden');
                 btnStartShift.textContent = '🔄 НАЧАТЬ СНОВА';
                 guestDisplay.style.display = 'none';
                 stopTimer();
-                timerDisplay.style.display = 'none';
+                hideResult();
                 drawGame();
                 return;
             }
 
-            // Показываем статус и автоматически переходим к следующему гостю
-            statusBar.textContent = `✅ ${allow ? 'ПРОПУЩЕН' : 'ОТПРАВЛЕН'}`;
+            const action = allow ? 'ПРОПУЩЕН' : 'ОТПРАВЛЕН';
+            const status = isMistake ? '⚠️ ОШИБКА' : '✅ ВЕРНО';
+            statusBar.textContent = `${status} ${action}`;
+            
             state.waitingForContinue = true;
             btnLeft.classList.add('hidden');
             btnRight.classList.add('hidden');
             btnPassport.classList.add('hidden');
+            btnBreath.classList.add('hidden');
+            btnSearch.classList.add('hidden');
+            btnPayment.classList.add('hidden');
             drawGame();
 
-            // Автоматический переход через задержку
             clearTimeout(state.autoContinueTimeout);
             state.autoContinueTimeout = setTimeout(() => {
                 if (state.waitingForContinue && state.shiftActive && !state.gameOver) {
@@ -790,6 +1034,12 @@
                     btnLeft.classList.remove('hidden');
                     btnRight.classList.remove('hidden');
                     btnPassport.classList.remove('hidden');
+                    
+                    const wave = WAVES[currentWaveIndex];
+                    btnBreath.classList.toggle('hidden', !wave.checks.includes('drunk'));
+                    btnSearch.classList.toggle('hidden', !wave.checks.includes('search'));
+                    btnPayment.classList.toggle('hidden', !wave.checks.includes('payment'));
+                    
                     showGuest(state.currentGuestIndex + 1);
                     updateUI();
                     drawGame();
@@ -804,19 +1054,10 @@
                 state.passportOpen = false;
                 return;
             }
+            hideResult();
             const guest = state.currentGuest;
             pName.textContent = guest.name;
             pBirth.textContent = guest.birthYear;
-            const img = state.imageCache[guest.spriteKey];
-            if (img) {
-                passportImage.src = img.src;
-                // Применяем стили для обрезки изображения
-                passportImage.style.width = '100%';
-                passportImage.style.height = '100%';
-                passportImage.style.objectFit = 'cover';
-                passportImage.style.objectPosition = 'top 15% center';
-                passportImage.style.imageRendering = 'pixelated';
-            }
             passportModal.classList.add('active');
             state.passportOpen = true;
         }
@@ -831,7 +1072,6 @@
             mistakeCountEl.textContent = state.mistakes;
         }
 
-        // === ОТРИСОВКА ФОНА ===
         function drawGame() {
             ctx.clearRect(0, 0, 360, 640);
 
@@ -863,14 +1103,38 @@
             ctx.fillStyle = '#555';
             ctx.textAlign = 'center';
             ctx.textBaseline = 'middle';
-            const statusText = state.gameOver ? (state.win ? 'ПОБЕДА!' : (state.waveFailed ? 'ВРЕМЯ ВЫШЛО!' : 'ПОРАЖЕНИЕ')) :
-                              state.shiftActive ? 'ИДЁТ СМЕНА' : 'ОЖИДАНИЕ';
+            let statusText = 'ОЖИДАНИЕ';
+            if (state.gameOver) {
+                if (state.win) statusText = 'ПОБЕДА!';
+                else if (state.waveFailed) statusText = 'ВРЕМЯ ВЫШЛО!';
+                else statusText = 'ПОРАЖЕНИЕ!';
+            } else if (state.shiftActive) {
+                statusText = `ВОЛНА ${currentWaveIndex + 1}/${WAVES.length}`;
+            }
             ctx.fillText(statusText, 180, 620);
         }
 
-        // === ОБРАБОТЧИКИ ===
-        btnStartShift.addEventListener('click', showCondition);
-        btnStartShift.addEventListener('touchend', (e) => { e.preventDefault(); showCondition(); });
+        btnStartShift.addEventListener('click', () => {
+            if (state.gameOver && state.win) {
+                currentWaveIndex = 0;
+                state.win = false;
+                state.gameOver = false;
+                showCondition();
+            } else {
+                showCondition();
+            }
+        });
+        btnStartShift.addEventListener('touchend', (e) => { 
+            e.preventDefault(); 
+            if (state.gameOver && state.win) {
+                currentWaveIndex = 0;
+                state.win = false;
+                state.gameOver = false;
+                showCondition();
+            } else {
+                showCondition();
+            }
+        });
 
         conditionStartBtn.addEventListener('click', startShift);
         conditionStartBtn.addEventListener('touchend', (e) => { e.preventDefault(); startShift(); });
@@ -884,6 +1148,15 @@
         btnPassport.addEventListener('click', openPassport);
         btnPassport.addEventListener('touchend', (e) => { e.preventDefault(); openPassport(); });
 
+        btnBreath.addEventListener('click', () => handleCheck('drunk'));
+        btnBreath.addEventListener('touchend', (e) => { e.preventDefault(); handleCheck('drunk'); });
+
+        btnSearch.addEventListener('click', () => handleCheck('search'));
+        btnSearch.addEventListener('touchend', (e) => { e.preventDefault(); handleCheck('search'); });
+
+        btnPayment.addEventListener('click', () => handleCheck('payment'));
+        btnPayment.addEventListener('touchend', (e) => { e.preventDefault(); handleCheck('payment'); });
+
         passportClose.addEventListener('click', closePassport);
         passportClose.addEventListener('touchend', (e) => { e.preventDefault(); closePassport(); });
 
@@ -891,19 +1164,22 @@
             if (e.target === passportModal) closePassport();
         });
 
-        // === ИНИЦИАЛИЗАЦИЯ ===
         function init() {
             statusBar.textContent = '⏳ ЗАГРУЗКА...';
-            timerDisplay.style.display = 'none';
+            currentWaveIndex = 0;
             
             loadImages(function() {
                 btnStartShift.classList.remove('hidden');
+                btnStartShift.textContent = '▶ НАЧАТЬ СМЕНУ';
                 btnLeft.classList.add('hidden');
                 btnRight.classList.add('hidden');
                 btnPassport.classList.add('hidden');
+                btnBreath.classList.add('hidden');
+                btnSearch.classList.add('hidden');
+                btnPayment.classList.add('hidden');
                 guestDisplay.style.display = 'none';
                 statusBar.textContent = '⚡ НАЧНИ СМЕНУ';
-                waveConditionEl.textContent = 'УСЛОВИЕ: ВСЕ СОВЕРШЕННОЛЕТНИЕ';
+                waveConditionEl.textContent = `ВОЛНА 1: ${WAVES[0].desc}`;
                 guestCountEl.textContent = '0';
                 mistakeCountEl.textContent = '0';
                 drawGame();
@@ -913,17 +1189,34 @@
         init();
         window.addEventListener('resize', drawGame);
 
-        // Клавиатура
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Enter') {
                 if (!conditionModal.classList.contains('active')) {
-                    if (!btnStartShift.classList.contains('hidden')) showCondition();
+                    if (!btnStartShift.classList.contains('hidden')) {
+                        if (state.gameOver && state.win) {
+                            currentWaveIndex = 0;
+                            state.win = false;
+                            state.gameOver = false;
+                            showCondition();
+                        } else {
+                            showCondition();
+                        }
+                    }
                 } else {
                     startShift();
                 }
             }
             if (e.key === 'p' || e.key === 'P') {
                 if (!btnPassport.classList.contains('hidden')) openPassport();
+            }
+            if (e.key === 'b' || e.key === 'B') {
+                if (!btnBreath.classList.contains('hidden')) handleCheck('drunk');
+            }
+            if (e.key === 's' || e.key === 'S') {
+                if (!btnSearch.classList.contains('hidden')) handleCheck('search');
+            }
+            if (e.key === 'm' || e.key === 'M') {
+                if (!btnPayment.classList.contains('hidden')) handleCheck('payment');
             }
             if (e.key === 'ArrowLeft') {
                 if (!btnLeft.classList.contains('hidden')) handleDecision(false);
