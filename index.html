@@ -291,14 +291,15 @@
             left: 50%;
             transform: translate(-50%, -50%);
             z-index: 3;
-            width: 200px;
-            height: 200px;
+            width: 180px;
+            height: 516px;
             display: none;
             align-items: center;
             justify-content: center;
-            margin-top: -30px;
-            background: rgba(0,0,0,0.3);
-            border-radius: 10px;
+            margin-top: -20px;
+            background: rgba(0,0,0,0.2);
+            border-radius: 4px;
+            overflow: hidden;
         }
 
         .guest-display img {
@@ -306,7 +307,7 @@
             height: 100%;
             object-fit: contain;
             image-rendering: pixelated;
-            filter: drop-shadow(0 0 20px rgba(255,255,255,0.05));
+            filter: drop-shadow(0 0 30px rgba(255,255,255,0.03));
         }
 
         .guest-name {
@@ -315,7 +316,7 @@
             left: 50%;
             transform: translateX(-50%);
             font-family: 'Press Start 2P', monospace;
-            font-size: 11px;
+            font-size: 10px;
             color: #aaa;
             z-index: 4;
             text-align: center;
@@ -332,7 +333,7 @@
             left: 50%;
             transform: translateX(-50%);
             font-family: 'Press Start 2P', monospace;
-            font-size: 10px;
+            font-size: 9px;
             color: #666;
             z-index: 4;
             background: rgba(0,0,0,0.7);
@@ -348,16 +349,16 @@
             .passport-field span { font-size: 9px; }
             #waveCondition { font-size: 7px; }
             #counters { font-size: 7px; }
-            .guest-display { width: 150px; height: 150px; }
-            .guest-name { font-size: 9px; bottom: 170px; }
-            .guest-year { font-size: 8px; bottom: 148px; }
+            .guest-display { width: 130px; height: 373px; }
+            .guest-name { font-size: 8px; bottom: 160px; }
+            .guest-year { font-size: 7px; bottom: 140px; }
         }
 
         @media (orientation: landscape) and (max-height: 500px) {
             #gameContainer { max-width: 70vh; }
-            .guest-display { width: 120px; height: 120px; margin-top: 0; }
-            .guest-name { bottom: 140px; font-size: 8px; }
-            .guest-year { bottom: 120px; font-size: 7px; }
+            .guest-display { width: 100px; height: 287px; margin-top: 0; }
+            .guest-name { bottom: 120px; font-size: 7px; }
+            .guest-year { bottom: 105px; font-size: 6px; }
         }
     </style>
 </head>
@@ -365,7 +366,7 @@
 <div id="gameContainer">
     <canvas id="gameCanvas" width="360" height="640"></canvas>
 
-    <!-- Отображение гостя -->
+    <!-- Отображение гостя с разрешением 294x844 -->
     <div class="guest-display" id="guestDisplay">
         <img id="guestImage" src="" alt="Гость">
     </div>
@@ -503,21 +504,21 @@
                 };
                 img.onerror = function() {
                     console.warn(`⚠️ Не удалось загрузить: ${path}`);
-                    // Создаём заглушку
+                    // Создаём заглушку с размерами 294x844
                     const canvas = document.createElement('canvas');
-                    canvas.width = 128;
-                    canvas.height = 128;
+                    canvas.width = 294;
+                    canvas.height = 844;
                     const cctx = canvas.getContext('2d');
                     cctx.fillStyle = '#222';
-                    cctx.fillRect(0, 0, 128, 128);
+                    cctx.fillRect(0, 0, 294, 844);
                     cctx.fillStyle = '#666';
-                    cctx.font = 'bold 40px sans-serif';
+                    cctx.font = 'bold 60px sans-serif';
                     cctx.textAlign = 'center';
                     cctx.textBaseline = 'middle';
-                    cctx.fillText(key.toUpperCase(), 64, 68);
+                    cctx.fillText(key.toUpperCase(), 147, 422);
                     cctx.strokeStyle = '#444';
-                    cctx.lineWidth = 2;
-                    cctx.strokeRect(2, 2, 124, 124);
+                    cctx.lineWidth = 3;
+                    cctx.strokeRect(3, 3, 288, 838);
                     
                     const fallbackImg = new Image();
                     fallbackImg.src = canvas.toDataURL();
@@ -592,7 +593,7 @@
             state.passportOpen = false;
             passportModal.classList.remove('active');
 
-            // Отображаем гостя
+            // Отображаем гостя с разрешением 294x844
             const guest = state.currentGuest;
             const img = state.imageCache[guest.spriteKey];
             if (img) {
@@ -702,7 +703,7 @@
             }
 
             // Затемнение для читаемости
-            ctx.fillStyle = 'rgba(0,0,0,0.2)';
+            ctx.fillStyle = 'rgba(0,0,0,0.15)';
             ctx.fillRect(0, 0, 360, 640);
 
             // Статус внизу
