@@ -109,7 +109,7 @@
         .touch-btn.breath-test {
             left: 50%;
             transform: translateX(-50%);
-            bottom: 180px;
+            bottom: 175px;
             width: 70%;
             border-color: #8866aa;
             font-size: 9px;
@@ -120,7 +120,7 @@
         .touch-btn.search-btn {
             left: 50%;
             transform: translateX(-50%);
-            bottom: 230px;
+            bottom: 220px;
             width: 70%;
             border-color: #aa8844;
             font-size: 9px;
@@ -131,7 +131,7 @@
         .touch-btn.payment-btn {
             left: 50%;
             transform: translateX(-50%);
-            bottom: 280px;
+            bottom: 265px;
             width: 70%;
             border-color: #44aa88;
             font-size: 9px;
@@ -165,6 +165,139 @@
             display: none !important;
         }
 
+        #nameModal {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.95);
+            z-index: 30;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            padding: 30px;
+            flex-direction: column;
+        }
+
+        #nameModal.active {
+            display: flex;
+        }
+
+        .name-content {
+            background: #0a0a0a;
+            border: 4px solid #444;
+            padding: 30px 25px;
+            width: 90%;
+            max-width: 320px;
+            text-align: center;
+        }
+
+        .name-title {
+            font-family: 'Press Start 2P', monospace;
+            font-size: 14px;
+            color: #fff;
+            margin-bottom: 20px;
+            letter-spacing: 2px;
+        }
+
+        .name-input {
+            width: 100%;
+            padding: 12px;
+            background: #1a1a1a;
+            border: 3px solid #444;
+            color: #fff;
+            font-family: 'Press Start 2P', monospace;
+            font-size: 12px;
+            text-align: center;
+            margin-bottom: 20px;
+            outline: none;
+        }
+
+        .name-input:focus {
+            border-color: #666;
+        }
+
+        .name-btn {
+            padding: 12px 30px;
+            background: #111;
+            border: 3px solid #555;
+            color: #fff;
+            font-family: 'Press Start 2P', monospace;
+            font-size: 12px;
+            cursor: pointer;
+            touch-action: manipulation;
+            width: 100%;
+        }
+
+        .name-btn:active {
+            background: #222;
+        }
+
+        #storyModal {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.95);
+            z-index: 30;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            padding: 30px;
+            flex-direction: column;
+        }
+
+        #storyModal.active {
+            display: flex;
+        }
+
+        .story-content {
+            background: #0a0a0a;
+            border: 4px solid #444;
+            padding: 30px 25px;
+            width: 90%;
+            max-width: 320px;
+            text-align: center;
+        }
+
+        .story-title {
+            font-family: 'Press Start 2P', monospace;
+            font-size: 12px;
+            color: #ffcc00;
+            margin-bottom: 15px;
+            letter-spacing: 2px;
+            line-height: 1.6;
+        }
+
+        .story-text {
+            font-family: 'Press Start 2P', monospace;
+            font-size: 10px;
+            color: #aaa;
+            padding: 15px;
+            border: 2px solid #333;
+            margin-bottom: 20px;
+            line-height: 1.8;
+            text-align: left;
+        }
+
+        .story-btn {
+            padding: 12px 30px;
+            background: #111;
+            border: 3px solid #555;
+            color: #fff;
+            font-family: 'Press Start 2P', monospace;
+            font-size: 11px;
+            cursor: pointer;
+            touch-action: manipulation;
+            width: 100%;
+        }
+
+        .story-btn:active {
+            background: #222;
+        }
+
         #conditionModal {
             position: absolute;
             top: 0;
@@ -196,19 +329,29 @@
         .condition-title {
             font-family: 'Press Start 2P', monospace;
             font-size: 14px;
-            color: #fff;
-            margin-bottom: 20px;
+            color: #ffcc00;
+            margin-bottom: 15px;
             letter-spacing: 2px;
         }
 
         .condition-text {
             font-family: 'Press Start 2P', monospace;
-            font-size: 12px;
-            color: #ffcc00;
+            font-size: 10px;
+            color: #aaa;
             padding: 15px;
             border: 2px solid #333;
-            margin-bottom: 25px;
-            line-height: 1.6;
+            margin-bottom: 20px;
+            line-height: 1.8;
+            text-align: left;
+        }
+
+        .condition-text .highlight {
+            color: #ffcc00;
+        }
+
+        .condition-text .tooltip {
+            color: #888;
+            font-size: 9px;
         }
 
         .condition-btn {
@@ -217,7 +360,7 @@
             border: 3px solid #555;
             color: #fff;
             font-family: 'Press Start 2P', monospace;
-            font-size: 12px;
+            font-size: 11px;
             cursor: pointer;
             touch-action: manipulation;
             width: 100%;
@@ -342,10 +485,10 @@
             left: 50%;
             transform: translateX(-50%);
             font-family: 'Press Start 2P', monospace;
-            font-size: 9px;
+            font-size: 8px;
             color: #888;
             background: rgba(0,0,0,0.85);
-            padding: 6px 12px;
+            padding: 5px 10px;
             border: 2px solid #333;
             z-index: 5;
             text-align: center;
@@ -362,10 +505,10 @@
             left: 50%;
             transform: translateX(-50%);
             font-family: 'Press Start 2P', monospace;
-            font-size: 8px;
+            font-size: 7px;
             color: #555;
             background: rgba(0,0,0,0.8);
-            padding: 4px 12px;
+            padding: 3px 10px;
             border: 2px solid #222;
             z-index: 5;
             text-align: center;
@@ -374,33 +517,33 @@
 
         #topPanel {
             position: absolute;
-            top: 50px;
-            left: 8px;
-            right: 8px;
+            top: 45px;
+            left: 6px;
+            right: 6px;
             display: flex;
             justify-content: space-between;
-            gap: 6px;
+            gap: 4px;
             z-index: 5;
         }
 
         .panel-item {
             font-family: 'Press Start 2P', monospace;
-            font-size: 10px;
+            font-size: 8px;
             color: #aaa;
             background: rgba(0,0,0,0.7);
-            padding: 6px 8px;
+            padding: 4px 6px;
             border: 2px solid #222;
             backdrop-filter: blur(2px);
             text-align: center;
             flex: 1;
             min-width: 0;
-            line-height: 1.4;
+            line-height: 1.3;
         }
 
         .panel-item .value {
             display: block;
-            font-size: 14px;
-            margin-top: 2px;
+            font-size: 12px;
+            margin-top: 1px;
         }
 
         .panel-item.timer {
@@ -449,39 +592,120 @@
         }
 
         @media (max-width: 400px) {
-            .touch-btn { font-size: 8px; padding: 4px 6px; min-height: 34px; }
-            .touch-btn.left, .touch-btn.right { font-size: 8px; }
+            .touch-btn { font-size: 8px; padding: 4px 6px; min-height: 30px; }
+            .touch-btn.left, .touch-btn.right { font-size: 8px; min-height: 32px; }
             .touch-btn.start-shift { font-size: 12px; padding: 14px; }
-            .condition-text { font-size: 10px; }
+            .condition-text { font-size: 9px; }
+            .story-text { font-size: 9px; }
             .passport-field { font-size: 8px; }
             .passport-field span { font-size: 9px; }
             #waveCondition { font-size: 7px; }
-            .panel-item { font-size: 8px; padding: 4px 5px; }
-            .panel-item .value { font-size: 11px; }
+            .panel-item { font-size: 7px; padding: 3px 4px; }
+            .panel-item .value { font-size: 10px; }
             .guest-display { width: 130px; height: 373px; }
-            .touch-btn.breath-test, .touch-btn.search-btn, .touch-btn.payment-btn { 
-                font-size: 8px; min-height: 30px; padding: 4px 6px; width: 65%;
+            
+            .touch-btn.check-passport {
+                bottom: 115px;
+                width: 65%;
+                font-size: 8px;
+                min-height: 28px;
+                padding: 4px 6px;
             }
-            .touch-btn.breath-test { bottom: 160px; }
-            .touch-btn.search-btn { bottom: 200px; }
-            .touch-btn.payment-btn { bottom: 240px; }
-            #resultPopup { font-size: 13px; padding: 15px 20px; }
+            
+            .touch-btn.breath-test {
+                bottom: 155px;
+                width: 65%;
+                font-size: 8px;
+                min-height: 28px;
+                padding: 4px 6px;
+            }
+            
+            .touch-btn.search-btn {
+                bottom: 195px;
+                width: 65%;
+                font-size: 8px;
+                min-height: 28px;
+                padding: 4px 6px;
+            }
+            
+            .touch-btn.payment-btn {
+                bottom: 235px;
+                width: 65%;
+                font-size: 8px;
+                min-height: 28px;
+                padding: 4px 6px;
+            }
+            
+            #resultPopup { 
+                font-size: 13px; 
+                padding: 15px 20px; 
+            }
+            
+            .name-title { font-size: 12px; }
+            .name-input { font-size: 10px; padding: 10px; }
+            .story-title { font-size: 11px; }
+            .condition-title { font-size: 12px; }
+        }
+
+        @media (max-width: 360px) {
+            .touch-btn.check-passport {
+                bottom: 105px;
+                width: 60%;
+                font-size: 7px;
+                min-height: 24px;
+                padding: 3px 5px;
+            }
+            
+            .touch-btn.breath-test {
+                bottom: 140px;
+                width: 60%;
+                font-size: 7px;
+                min-height: 24px;
+                padding: 3px 5px;
+            }
+            
+            .touch-btn.search-btn {
+                bottom: 175px;
+                width: 60%;
+                font-size: 7px;
+                min-height: 24px;
+                padding: 3px 5px;
+            }
+            
+            .touch-btn.payment-btn {
+                bottom: 210px;
+                width: 60%;
+                font-size: 7px;
+                min-height: 24px;
+                padding: 3px 5px;
+            }
+            
+            .touch-btn.left, .touch-btn.right {
+                font-size: 7px;
+                min-height: 28px;
+                padding: 3px 5px;
+            }
+            
+            .panel-item { font-size: 6px; padding: 2px 3px; }
+            .panel-item .value { font-size: 9px; }
+            .guest-display { width: 110px; height: 316px; }
         }
 
         @media (orientation: landscape) and (max-height: 500px) {
             #gameContainer { max-width: 70vh; }
             .guest-display { width: 100px; height: 287px; margin-top: 0; }
-            .panel-item { font-size: 7px; padding: 3px 4px; }
-            .panel-item .value { font-size: 10px; }
-            .touch-btn { font-size: 7px; padding: 3px 5px; min-height: 28px; }
-            .touch-btn.left, .touch-btn.right { font-size: 7px; }
-            .touch-btn.breath-test, .touch-btn.search-btn, .touch-btn.payment-btn { 
-                font-size: 7px; min-height: 24px; padding: 3px 5px;
-            }
-            .touch-btn.breath-test { bottom: 140px; }
-            .touch-btn.search-btn { bottom: 170px; }
-            .touch-btn.payment-btn { bottom: 200px; }
-            #resultPopup { font-size: 11px; padding: 12px 16px; }
+            .panel-item { font-size: 6px; padding: 2px 3px; }
+            .panel-item .value { font-size: 9px; }
+            .touch-btn { font-size: 6px; padding: 2px 4px; min-height: 22px; }
+            .touch-btn.left, .touch-btn.right { font-size: 6px; min-height: 22px; }
+            .touch-btn.check-passport { bottom: 100px; font-size: 6px; min-height: 20px; padding: 2px 4px; width: 60%; }
+            .touch-btn.breath-test { bottom: 132px; font-size: 6px; min-height: 20px; padding: 2px 4px; width: 60%; }
+            .touch-btn.search-btn { bottom: 164px; font-size: 6px; min-height: 20px; padding: 2px 4px; width: 60%; }
+            .touch-btn.payment-btn { bottom: 196px; font-size: 6px; min-height: 20px; padding: 2px 4px; width: 60%; }
+            #resultPopup { font-size: 10px; padding: 10px 14px; }
+            .story-text { font-size: 8px; }
+            .condition-text { font-size: 8px; }
+            .condition-title { font-size: 11px; }
         }
     </style>
 </head>
@@ -501,17 +725,33 @@
     <button class="touch-btn breath-test hidden" id="btnBreath">🌬️ ДЫХНУТЬ</button>
     <button class="touch-btn search-btn hidden" id="btnSearch">🔍 ОБЫСКАТЬ</button>
     <button class="touch-btn payment-btn hidden" id="btnPayment">💳 ОПЛАТА</button>
-    <button class="touch-btn start-shift" id="btnStartShift">▶ НАЧАТЬ СМЕНУ</button>
+    <button class="touch-btn start-shift" id="btnStartShift">▶ НАЧАТЬ ИГРУ</button>
 
-    <div id="conditionModal">
-        <div class="condition-content">
-            <div class="condition-title">📋 УСЛОВИЕ СМЕНЫ</div>
-            <div class="condition-text" id="conditionText">ВСЕ СОВЕРШЕННОЛЕТНИЕ</div>
-            <button class="condition-btn" id="conditionStartBtn">▶ ПРИНЯТЬ</button>
+    <div id="nameModal">
+        <div class="name-content">
+            <div class="name-title">📝 ВВЕДИТЕ ИМЯ</div>
+            <input class="name-input" id="nameInput" type="text" placeholder="ВАШЕ ИМЯ" maxlength="15">
+            <button class="name-btn" id="nameConfirmBtn">▶ ДАЛЕЕ</button>
         </div>
     </div>
 
-    <div id="waveCondition">ВОЛНА 1: ВСЕ СОВЕРШЕННОЛЕТНИЕ</div>
+    <div id="storyModal">
+        <div class="story-content">
+            <div class="story-title" id="storyTitle">👋 ПРИВЕТСТВИЕ</div>
+            <div class="story-text" id="storyText"></div>
+            <button class="story-btn" id="storyConfirmBtn">▶ ДАЛЕЕ</button>
+        </div>
+    </div>
+
+    <div id="conditionModal">
+        <div class="condition-content">
+            <div class="condition-title" id="conditionTitle">🌙 ПЕРВАЯ НОЧЬ</div>
+            <div class="condition-text" id="conditionText"></div>
+            <button class="condition-btn" id="conditionStartBtn">▶ НАЧАТЬ</button>
+        </div>
+    </div>
+
+    <div id="waveCondition">НОЧЬ 1: СОВЕРШЕННОЛЕТНИЙ</div>
     
     <div id="topPanel">
         <div class="panel-item timer" id="timerDisplay">
@@ -569,19 +809,42 @@
         const WAVE_TIME_LIMIT = 45;
         const AUTO_CONTINUE_DELAY = 1000;
 
-        const WAVES = [
-            { id: 1, name: 'Возраст', checks: ['age'], desc: 'ВСЕ СОВЕРШЕННОЛЕТНИЕ' },
-            { id: 2, name: 'Пьян', checks: ['drunk'], desc: 'НЕТ ПЬЯНЫХ' },
-            { id: 3, name: 'Возраст + Пьян', checks: ['age', 'drunk'], desc: 'СОВЕРШЕННОЛЕТНИЕ И ТРЕЗВЫЕ' },
-            { id: 4, name: 'Обыск', checks: ['search'], desc: 'НЕТ ОРУЖИЯ' },
-            { id: 5, name: 'Возраст + Обыск', checks: ['age', 'search'], desc: 'СОВЕРШЕННОЛЕТНИЕ И БЕЗ ОРУЖИЯ' },
-            { id: 6, name: 'Возраст + Обыск + Пьян', checks: ['age', 'search', 'drunk'], desc: 'СОВЕРШЕННОЛЕТНИЕ, ТРЕЗВЫЕ, БЕЗ ОРУЖИЯ' },
-            { id: 7, name: 'Возраст + Оплата', checks: ['age', 'payment'], desc: 'СОВЕРШЕННОЛЕТНИЕ ПАРНИ С ДЕНЬГАМИ' }
+        // НОЧИ с подсказками
+        const NIGHTS = [
+            { 
+                id: 1, 
+                name: 'Первая ночь', 
+                checks: ['age'], 
+                desc: 'СОВЕРШЕННОЛЕТНИЙ*',
+                tooltip: '*Для этого проверь паспорт'
+            },
+            { 
+                id: 2, 
+                name: 'Вторая ночь', 
+                checks: ['age', 'drunk'], 
+                desc: 'СОВЕРШЕННОЛЕТНИЙ И НЕТ ПЬЯНЫХ*',
+                tooltip: '*Для этого проверь паспорт и попроси дыхнуть'
+            },
+            { 
+                id: 3, 
+                name: 'Третья ночь', 
+                checks: ['age', 'drunk', 'search'], 
+                desc: 'СОВЕРШЕННОЛЕТНИЙ, ТРЕЗВЫЙ, БЕЗ ОРУЖИЯ*',
+                tooltip: '*Для этого проверь паспорт, попроси дыхнуть и обыщи'
+            },
+            { 
+                id: 4, 
+                name: 'Четвёртая ночь', 
+                checks: ['age', 'drunk', 'search', 'payment'], 
+                desc: 'СОВЕРШЕННОЛЕТНИЙ, ТРЕЗВЫЙ, БЕЗ ОРУЖИЯ (ПАРНИ С ОПЛАТОЙ)*',
+                tooltip: '*Для этого проверь паспорт, попроси дыхнуть, обыщи и проведи оплату'
+            }
         ];
 
-        let currentWaveIndex = 0;
+        let currentNightIndex = 0;
+        let playerName = '';
 
-        function generateGuest(index, waveIndex) {
+        function generateGuest(index, nightIndex) {
             const isMale = index < 6;
             let name;
             if (isMale) {
@@ -633,11 +896,14 @@
             imageCache: {},
             timeLeft: WAVE_TIME_LIMIT,
             timerInterval: null,
-            waveFailed: false,
+            nightFailed: false,
             autoContinueTimeout: null,
             resultShown: false,
-            currentWave: 0,
-            resultTimeout: null
+            resultTimeout: null,
+            gameStarted: false,
+            nameEntered: false,
+            storyShown: false,
+            waitingForNextNight: false
         };
 
         const canvas = document.getElementById('gameCanvas');
@@ -657,7 +923,15 @@
         const btnSearch = document.getElementById('btnSearch');
         const btnPayment = document.getElementById('btnPayment');
         const btnStartShift = document.getElementById('btnStartShift');
+        const nameModal = document.getElementById('nameModal');
+        const nameInput = document.getElementById('nameInput');
+        const nameConfirmBtn = document.getElementById('nameConfirmBtn');
+        const storyModal = document.getElementById('storyModal');
+        const storyTitle = document.getElementById('storyTitle');
+        const storyText = document.getElementById('storyText');
+        const storyConfirmBtn = document.getElementById('storyConfirmBtn');
         const conditionModal = document.getElementById('conditionModal');
+        const conditionTitle = document.getElementById('conditionTitle');
         const conditionText = document.getElementById('conditionText');
         const conditionStartBtn = document.getElementById('conditionStartBtn');
         const passportModal = document.getElementById('passportModal');
@@ -733,7 +1007,7 @@
                     clearInterval(state.timerInterval);
                     state.timerInterval = null;
                     if (state.shiftActive && !state.gameOver) {
-                        waveFailed();
+                        nightFailed();
                     }
                 }
             }, 1000);
@@ -760,12 +1034,12 @@
             updateTimerDisplay();
         }
 
-        function waveFailed() {
+        function nightFailed() {
             if (state.gameOver) return;
             state.shiftActive = false;
             state.gameOver = true;
             state.win = false;
-            state.waveFailed = true;
+            state.nightFailed = true;
             
             statusBar.textContent = '⏰ ВРЕМЯ ВЫШЛО!';
             btnLeft.classList.add('hidden');
@@ -775,7 +1049,7 @@
             btnSearch.classList.add('hidden');
             btnPayment.classList.add('hidden');
             btnStartShift.classList.remove('hidden');
-            btnStartShift.textContent = '🔄 НАЧАТЬ СНОВА';
+            btnStartShift.textContent = '🔄 НАЧАТЬ ЗАНОВО';
             guestDisplay.style.display = 'none';
             stopTimer();
             hideResult();
@@ -794,11 +1068,9 @@
             }, 1800);
         }
 
-        function showCondition() {
-            const wave = WAVES[currentWaveIndex];
-            conditionText.textContent = wave.desc;
-            conditionModal.classList.add('active');
-            btnStartShift.classList.add('hidden');
+        function showStartScreen() {
+            btnStartShift.classList.remove('hidden');
+            btnStartShift.textContent = '▶ НАЧАТЬ ИГРУ';
             btnLeft.classList.add('hidden');
             btnRight.classList.add('hidden');
             btnPassport.classList.add('hidden');
@@ -806,16 +1078,44 @@
             btnSearch.classList.add('hidden');
             btnPayment.classList.add('hidden');
             guestDisplay.style.display = 'none';
-            hideResult();
+            nameModal.classList.remove('active');
+            storyModal.classList.remove('active');
+            conditionModal.classList.remove('active');
+            waveConditionEl.textContent = 'ДОБРО ПОЖАЛОВАТЬ!';
+            statusBar.textContent = '⚡ НАЧНИ ИГРУ';
+            drawGame();
         }
 
-        function startShift() {
+        function showNameScreen() {
+            nameModal.classList.add('active');
+            nameInput.value = '';
+            setTimeout(() => nameInput.focus(), 300);
+        }
+
+        function showStoryScreen() {
+            nameModal.classList.remove('active');
+            storyModal.classList.add('active');
+            storyTitle.textContent = `👋 ПРИВЕТ, ${playerName}!`;
+            storyText.textContent = `Ты новый фейсер клуба "Дом Культуры".\n\nТвоя задача — контролировать, кто проходит в клуб, а кому лучше отправиться домой.\n\nВпереди 4 ночи. Удачи!`;
+        }
+
+        function showNightCondition() {
+            storyModal.classList.remove('active');
+            const night = NIGHTS[currentNightIndex];
+            conditionModal.classList.add('active');
+            conditionTitle.textContent = `🌙 ${night.name}`;
+            
+            let condText = `УСЛОВИЕ ПРОХОДА:\n${night.desc}\n\n${night.tooltip}`;
+            conditionText.textContent = condText;
+        }
+
+        function startNight() {
             if (!state.imagesLoaded) {
                 statusBar.textContent = '⏳ ЗАГРУЗКА...';
                 return;
             }
 
-            const wave = WAVES[currentWaveIndex];
+            const night = NIGHTS[currentNightIndex];
             
             state.shiftActive = true;
             state.gameOver = false;
@@ -825,24 +1125,25 @@
             state.currentGuestIndex = 0;
             state.waitingForContinue = false;
             state.passportOpen = false;
-            state.waveFailed = false;
+            state.nightFailed = false;
             state.resultShown = false;
+            state.waitingForNextNight = false;
 
             state.guests = [];
             for (let i = 0; i < 10; i++) {
-                state.guests.push(generateGuest(i, currentWaveIndex));
+                state.guests.push(generateGuest(i, currentNightIndex));
             }
 
-            waveConditionEl.textContent = `ВОЛНА ${wave.id}: ${wave.desc}`;
+            waveConditionEl.textContent = `НОЧЬ ${night.id}: ${night.desc.replace(/\*/g, '')}`;
             conditionModal.classList.remove('active');
             btnStartShift.classList.add('hidden');
             btnLeft.classList.remove('hidden');
             btnRight.classList.remove('hidden');
             btnPassport.classList.remove('hidden');
             
-            btnBreath.classList.toggle('hidden', !wave.checks.includes('drunk'));
-            btnSearch.classList.toggle('hidden', !wave.checks.includes('search'));
-            btnPayment.classList.toggle('hidden', !wave.checks.includes('payment'));
+            btnBreath.classList.toggle('hidden', !night.checks.includes('drunk'));
+            btnSearch.classList.toggle('hidden', !night.checks.includes('search'));
+            btnPayment.classList.toggle('hidden', !night.checks.includes('payment'));
 
             resetTimer();
             startTimer();
@@ -854,30 +1155,39 @@
 
         function showGuest(index) {
             if (index >= state.guests.length) {
-                if (currentWaveIndex < WAVES.length - 1) {
-                    currentWaveIndex++;
+                // Ночь завершена - показываем следующую
+                if (currentNightIndex < NIGHTS.length - 1) {
+                    currentNightIndex++;
                     state.shiftActive = false;
                     state.gameOver = false;
                     state.win = false;
-                    statusBar.textContent = `🌊 ВОЛНА ${currentWaveIndex + 1}`;
+                    state.waitingForNextNight = true;
+                    statusBar.textContent = `🌙 НОЧЬ ${currentNightIndex + 1}`;
                     btnLeft.classList.add('hidden');
                     btnRight.classList.add('hidden');
                     btnPassport.classList.add('hidden');
                     btnBreath.classList.add('hidden');
                     btnSearch.classList.add('hidden');
                     btnPayment.classList.add('hidden');
-                    btnStartShift.classList.remove('hidden');
-                    btnStartShift.textContent = `▶ НАЧАТЬ ВОЛНУ ${currentWaveIndex + 1}`;
                     guestDisplay.style.display = 'none';
                     stopTimer();
                     hideResult();
                     drawGame();
+                    
+                    // Автоматически показываем условие следующей ночи через 1.5 секунды
+                    setTimeout(() => {
+                        if (state.waitingForNextNight) {
+                            showNightCondition();
+                            state.waitingForNextNight = false;
+                        }
+                    }, 1500);
                     return;
                 } else {
+                    // Все ночи пройдены - победа!
                     state.shiftActive = false;
                     state.gameOver = true;
                     state.win = true;
-                    statusBar.textContent = '🏆 ПОБЕДА! ВСЕ ВОЛНЫ ПРОЙДЕНЫ!';
+                    statusBar.textContent = '🏆 ПОБЕДА! ВСЕ НОЧИ ПРОЙДЕНЫ!';
                     btnLeft.classList.add('hidden');
                     btnRight.classList.add('hidden');
                     btnPassport.classList.add('hidden');
@@ -885,7 +1195,7 @@
                     btnSearch.classList.add('hidden');
                     btnPayment.classList.add('hidden');
                     btnStartShift.classList.remove('hidden');
-                    btnStartShift.textContent = '🔄 НОВАЯ ИГРА';
+                    btnStartShift.textContent = '🔄 ИГРАТЬ СНОВА';
                     guestDisplay.style.display = 'none';
                     stopTimer();
                     hideResult();
@@ -918,11 +1228,9 @@
             if (state.waitingForContinue) return;
             if (!state.currentGuest) return;
             
-            // Скрываем предыдущий результат при нажатии на любую кнопку
             hideResult();
 
             const guest = state.currentGuest;
-            const wave = WAVES[currentWaveIndex];
             
             if (type === 'drunk') {
                 guest.checksDone.drunk = true;
@@ -958,30 +1266,25 @@
             if (state.waitingForContinue) return;
             if (!state.currentGuest) return;
             
-            // Скрываем предыдущий результат при нажатии на кнопку отправки/пропуска
             hideResult();
 
             const guest = state.currentGuest;
-            const wave = WAVES[currentWaveIndex];
+            const night = NIGHTS[currentNightIndex];
             let isMistake = false;
 
-            // Проверяем только возраст, если он есть в условиях волны
-            // Остальные проверки не обязательны
             let shouldPass = true;
             
-            // Проверка возраста (если требуется)
-            if (wave.checks.includes('age') && !guest.isAdult) {
+            if (night.checks.includes('age') && !guest.isAdult) {
                 shouldPass = false;
             }
             
-            // Дополнительные проверки (если были выполнены - учитываем, если нет - игнорируем)
-            if (wave.checks.includes('drunk') && guest.checksDone.drunk && guest.isDrunk) {
+            if (night.checks.includes('drunk') && guest.checksDone.drunk && guest.isDrunk) {
                 shouldPass = false;
             }
-            if (wave.checks.includes('search') && guest.checksDone.search && guest.hasWeapon) {
+            if (night.checks.includes('search') && guest.checksDone.search && guest.hasWeapon) {
                 shouldPass = false;
             }
-            if (wave.checks.includes('payment') && guest.checksDone.payment && (!guest.isMale || !guest.hasMoney)) {
+            if (night.checks.includes('payment') && guest.checksDone.payment && (!guest.isMale || !guest.hasMoney)) {
                 shouldPass = false;
             }
 
@@ -1006,7 +1309,7 @@
                 btnSearch.classList.add('hidden');
                 btnPayment.classList.add('hidden');
                 btnStartShift.classList.remove('hidden');
-                btnStartShift.textContent = '🔄 НАЧАТЬ СНОВА';
+                btnStartShift.textContent = '🔄 НАЧАТЬ ЗАНОВО';
                 guestDisplay.style.display = 'none';
                 stopTimer();
                 hideResult();
@@ -1035,10 +1338,10 @@
                     btnRight.classList.remove('hidden');
                     btnPassport.classList.remove('hidden');
                     
-                    const wave = WAVES[currentWaveIndex];
-                    btnBreath.classList.toggle('hidden', !wave.checks.includes('drunk'));
-                    btnSearch.classList.toggle('hidden', !wave.checks.includes('search'));
-                    btnPayment.classList.toggle('hidden', !wave.checks.includes('payment'));
+                    const night = NIGHTS[currentNightIndex];
+                    btnBreath.classList.toggle('hidden', !night.checks.includes('drunk'));
+                    btnSearch.classList.toggle('hidden', !night.checks.includes('search'));
+                    btnPayment.classList.toggle('hidden', !night.checks.includes('payment'));
                     
                     showGuest(state.currentGuestIndex + 1);
                     updateUI();
@@ -1106,38 +1409,106 @@
             let statusText = 'ОЖИДАНИЕ';
             if (state.gameOver) {
                 if (state.win) statusText = 'ПОБЕДА!';
-                else if (state.waveFailed) statusText = 'ВРЕМЯ ВЫШЛО!';
+                else if (state.nightFailed) statusText = 'ВРЕМЯ ВЫШЛО!';
                 else statusText = 'ПОРАЖЕНИЕ!';
             } else if (state.shiftActive) {
-                statusText = `ВОЛНА ${currentWaveIndex + 1}/${WAVES.length}`;
+                statusText = `НОЧЬ ${currentNightIndex + 1}/${NIGHTS.length}`;
+            } else if (state.waitingForNextNight) {
+                statusText = 'ЗАГРУЗКА...';
             }
             ctx.fillText(statusText, 180, 620);
         }
 
+        // === ОБРАБОТЧИКИ ===
+
         btnStartShift.addEventListener('click', () => {
             if (state.gameOver && state.win) {
-                currentWaveIndex = 0;
+                currentNightIndex = 0;
                 state.win = false;
                 state.gameOver = false;
-                showCondition();
-            } else {
-                showCondition();
+                showStartScreen();
+                setTimeout(() => showNameScreen(), 300);
+                return;
             }
+            if (state.gameOver && !state.win) {
+                currentNightIndex = 0;
+                state.win = false;
+                state.gameOver = false;
+                showStartScreen();
+                setTimeout(() => showNameScreen(), 300);
+                return;
+            }
+            showNameScreen();
         });
         btnStartShift.addEventListener('touchend', (e) => { 
             e.preventDefault(); 
             if (state.gameOver && state.win) {
-                currentWaveIndex = 0;
+                currentNightIndex = 0;
                 state.win = false;
                 state.gameOver = false;
-                showCondition();
-            } else {
-                showCondition();
+                showStartScreen();
+                setTimeout(() => showNameScreen(), 300);
+                return;
+            }
+            if (state.gameOver && !state.win) {
+                currentNightIndex = 0;
+                state.win = false;
+                state.gameOver = false;
+                showStartScreen();
+                setTimeout(() => showNameScreen(), 300);
+                return;
+            }
+            showNameScreen();
+        });
+
+        nameConfirmBtn.addEventListener('click', () => {
+            const name = nameInput.value.trim();
+            if (name.length === 0) {
+                nameInput.style.borderColor = '#ff4444';
+                setTimeout(() => nameInput.style.borderColor = '#444', 500);
+                return;
+            }
+            playerName = name;
+            state.nameEntered = true;
+            showStoryScreen();
+        });
+        nameConfirmBtn.addEventListener('touchend', (e) => { 
+            e.preventDefault(); 
+            const name = nameInput.value.trim();
+            if (name.length === 0) {
+                nameInput.style.borderColor = '#ff4444';
+                setTimeout(() => nameInput.style.borderColor = '#444', 500);
+                return;
+            }
+            playerName = name;
+            state.nameEntered = true;
+            showStoryScreen();
+        });
+
+        nameInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') {
+                const name = nameInput.value.trim();
+                if (name.length === 0) {
+                    nameInput.style.borderColor = '#ff4444';
+                    setTimeout(() => nameInput.style.borderColor = '#444', 500);
+                    return;
+                }
+                playerName = name;
+                state.nameEntered = true;
+                showStoryScreen();
             }
         });
 
-        conditionStartBtn.addEventListener('click', startShift);
-        conditionStartBtn.addEventListener('touchend', (e) => { e.preventDefault(); startShift(); });
+        storyConfirmBtn.addEventListener('click', () => {
+            showNightCondition();
+        });
+        storyConfirmBtn.addEventListener('touchend', (e) => { 
+            e.preventDefault(); 
+            showNightCondition();
+        });
+
+        conditionStartBtn.addEventListener('click', startNight);
+        conditionStartBtn.addEventListener('touchend', (e) => { e.preventDefault(); startNight(); });
 
         btnLeft.addEventListener('click', () => handleDecision(false));
         btnLeft.addEventListener('touchend', (e) => { e.preventDefault(); handleDecision(false); });
@@ -1166,22 +1537,10 @@
 
         function init() {
             statusBar.textContent = '⏳ ЗАГРУЗКА...';
-            currentWaveIndex = 0;
+            currentNightIndex = 0;
             
             loadImages(function() {
-                btnStartShift.classList.remove('hidden');
-                btnStartShift.textContent = '▶ НАЧАТЬ СМЕНУ';
-                btnLeft.classList.add('hidden');
-                btnRight.classList.add('hidden');
-                btnPassport.classList.add('hidden');
-                btnBreath.classList.add('hidden');
-                btnSearch.classList.add('hidden');
-                btnPayment.classList.add('hidden');
-                guestDisplay.style.display = 'none';
-                statusBar.textContent = '⚡ НАЧНИ СМЕНУ';
-                waveConditionEl.textContent = `ВОЛНА 1: ${WAVES[0].desc}`;
-                guestCountEl.textContent = '0';
-                mistakeCountEl.textContent = '0';
+                showStartScreen();
                 drawGame();
             });
         }
@@ -1191,19 +1550,20 @@
 
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Enter') {
-                if (!conditionModal.classList.contains('active')) {
-                    if (!btnStartShift.classList.contains('hidden')) {
-                        if (state.gameOver && state.win) {
-                            currentWaveIndex = 0;
-                            state.win = false;
-                            state.gameOver = false;
-                            showCondition();
-                        } else {
-                            showCondition();
-                        }
+                if (nameModal.classList.contains('active')) {
+                    const name = nameInput.value.trim();
+                    if (name.length === 0) {
+                        nameInput.style.borderColor = '#ff4444';
+                        setTimeout(() => nameInput.style.borderColor = '#444', 500);
+                        return;
                     }
-                } else {
-                    startShift();
+                    playerName = name;
+                    state.nameEntered = true;
+                    showStoryScreen();
+                } else if (storyModal.classList.contains('active')) {
+                    showNightCondition();
+                } else if (conditionModal.classList.contains('active')) {
+                    startNight();
                 }
             }
             if (e.key === 'p' || e.key === 'P') {
